@@ -1,0 +1,3434 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go To Wealth - เมืองเล็ก ๆ กับความฝันที่ยิ่งใหญ่</title>
+    <!-- Google Fonts: Thai and Latin typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Prompt:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5c52e6;
+            --primary-hover: #4b40dc;
+            --gold: #d99824;
+            --gold-light: #fef4df;
+            --cream: #faf2e4;
+            --cream-hover: #fff9ef;
+            --dark-ink: #1e2433;
+            --menu-text: #2a231d;
+            --muted: #64748b;
+            --border-line: rgba(226, 232, 240, 0.8);
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --glass-bg: rgba(255, 255, 255, 0.82);
+            --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.12);
+            --shadow-strong: 0 14px 40px rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Prompt', 'Kanit', system-ui, -apple-system, sans-serif;
+            color: var(--dark-ink);
+            background-color: #0b1320;
+            min-height: 100vh;
+            overflow-x: hidden;
+            user-select: none;
+        }
+
+        button {
+            font-family: inherit;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        button:active {
+            transform: scale(0.97) !important;
+        }
+
+        button:disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* ============================================================
+           TITLE / START SCREEN (Matching Image 1: menu-ref.jpg)
+           ============================================================ */
+        #screen-title {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #1a2232;
+        }
+
+        /* City background map */
+        .title-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('city-bg.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            transform: scale(1.005);
+            transition: transform 12s ease-out;
+        }
+
+        #screen-title:hover .title-bg {
+            transform: scale(1.03);
+        }
+
+        /* Vignette / Left dark gradient matching reference */
+        .title-vignette {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: linear-gradient(90deg,
+                    rgba(12, 19, 31, 0.78) 0%,
+                    rgba(14, 22, 36, 0.65) 24%,
+                    rgba(16, 26, 42, 0.35) 44%,
+                    rgba(16, 26, 42, 0.12) 62%,
+                    rgba(0, 0, 0, 0) 80%);
+            pointer-events: none;
+        }
+
+        /* Subtle top & bottom shadow gradient */
+        .title-ambient-shadow {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            background: linear-gradient(180deg,
+                    rgba(0, 0, 0, 0.35) 0%,
+                    rgba(0, 0, 0, 0) 18%,
+                    rgba(0, 0, 0, 0) 82%,
+                    rgba(0, 0, 0, 0.5) 100%);
+            pointer-events: none;
+        }
+
+        /* Title Screen Content Container */
+        .title-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 24px 36px;
+        }
+
+        /* Top Bar */
+        .title-topbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pill-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: #2b3445;
+            font-size: 13.5px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+        }
+
+        .pill-btn:hover {
+            background: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+        }
+
+        /* Left Side: Game Title & Main Menu */
+        .title-main-layout {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 28px;
+            margin-bottom: 24px;
+            max-width: 380px;
+        }
+
+        /* Crown emblem */
+        .crown-emblem {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #e9ad36 0%, #bd7d12 100%);
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            box-shadow: 0 0 16px rgba(233, 173, 54, 0.6), 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 14px;
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+
+        .crown-logo-svg {
+            width: 32px;
+            height: 32px;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.45));
+            display: block;
+        }
+
+        .stat-icon-svg {
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 6px;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+        }
+
+        .crown-icon-inline {
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+
+        @keyframes pulseGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 14px rgba(233, 173, 54, 0.5), 0 4px 10px rgba(0, 0, 0, 0.3);
+                transform: scale(1);
+            }
+
+            50% {
+                box-shadow: 0 0 24px rgba(255, 215, 0, 0.85), 0 4px 12px rgba(0, 0, 0, 0.35);
+                transform: scale(1.05);
+            }
+        }
+
+        /* Go To Wealth Logo Text */
+        .title-logo {
+            font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+            font-size: 58px;
+            line-height: 1.05;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7), 0 2px 4px rgba(0, 0, 0, 0.8);
+            margin-bottom: 8px;
+        }
+
+        .title-logo span {
+            display: block;
+        }
+
+        /* Tagline */
+        .title-tagline {
+            font-size: 14px;
+            color: #edf2f7;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+            margin-bottom: 28px;
+            letter-spacing: 0.3px;
+            font-weight: 400;
+        }
+
+        /* Menu Buttons List */
+        .title-menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 250px;
+        }
+
+        /* Warm Cream Menu Button (matching reference) */
+        .menu-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 22px;
+            background: var(--cream);
+            color: var(--menu-text);
+            border-radius: 18px;
+            font-size: 15.5px;
+            font-weight: 600;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22), inset 0 1px 1px rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .menu-btn:hover::before {
+            left: 120%;
+        }
+
+        .menu-btn:hover {
+            background: var(--cream-hover);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.32), 0 0 14px rgba(255, 243, 205, 0.4);
+        }
+
+        .menu-btn-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-btn .chevron {
+            font-size: 16px;
+            color: #6a5a4c;
+            transition: transform 0.2s;
+        }
+
+        .menu-btn:hover .chevron {
+            transform: translateX(3px);
+            color: #2b241c;
+        }
+
+        /* Exit button style (subtle semi-transparent) */
+        .menu-btn-exit {
+            background: rgba(18, 26, 40, 0.45);
+            backdrop-filter: blur(6px);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            justify-content: center;
+            padding: 11px 20px;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .menu-btn-exit:hover {
+            background: rgba(220, 53, 69, 0.7);
+            color: #ffffff;
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 6px 18px rgba(220, 53, 69, 0.35);
+        }
+
+        /* Bottom Bar */
+        .title-bottombar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            color: rgba(255, 255, 255, 0.75);
+            font-size: 12.5px;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+        }
+
+        .title-bottombar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .small-dark-btn {
+            background: rgba(18, 26, 40, 0.55);
+            backdrop-filter: blur(6px);
+            color: #edf2f7;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 12.5px;
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .small-dark-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #1a202c;
+            border-color: #ffffff;
+        }
+
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        /* ============================================================
+           CAREER SELECTION OVERLAY / SCREEN
+           ============================================================ */
+        #screen-career {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            background: rgba(10, 16, 28, 0.78);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .career-modal-card {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 28px;
+            max-width: 960px;
+            width: 100%;
+            padding: 36px;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.45);
+            position: relative;
+        }
+
+        .career-header {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .career-header h2 {
+            font-size: 30px;
+            font-weight: 700;
+            color: #1a233a;
+            margin-bottom: 6px;
+        }
+
+        .career-header p {
+            color: var(--muted);
+            font-size: 14.5px;
+        }
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .career-card {
+            background: #ffffff;
+            border: 2px solid #e7ecf5;
+            border-radius: 22px;
+            padding: 24px;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .career-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 36px rgba(92, 82, 230, 0.18);
+        }
+
+        .career-card .emoji-badge {
+            font-size: 44px;
+            width: 68px;
+            height: 68px;
+            background: #f4f4fe;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .career-card h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+
+        .career-card p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--muted);
+            flex: 1;
+            margin-bottom: 16px;
+        }
+
+        .career-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .tag-pill {
+            padding: 5px 10px;
+            background: #f1f4fb;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .career-select-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .career-card:hover .career-select-btn {
+            background: var(--primary-hover);
+        }
+
+        .close-corner-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-corner-btn:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        /* ============================================================
+           IN-GAME SCREEN (Screenshot 2026-10-24 120358.png style)
+           ============================================================ */
+        #screen-game {
+            min-height: 100vh;
+            position: relative;
+            background: #0f172a;
+            padding-bottom: 40px;
+        }
+
+        .game-bg-layer {
+            position: fixed;
+            inset: 0;
+            background-image: url('city-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.22;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .game-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 18px 24px;
+        }
+
+        /* Game Header Bar */
+        .game-header {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            border-radius: 20px;
+            padding: 14px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+            margin-bottom: 18px;
+        }
+
+        .game-header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .game-header-brand {
+            font-size: 21px;
+            font-weight: 800;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .game-header-brand .crown {
+            font-size: 22px;
+        }
+
+        .career-badge {
+            padding: 4px 12px;
+            background: #eef2ff;
+            color: var(--primary);
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .game-header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-btn {
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: #f1f5f9;
+            color: #334155;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .header-btn:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        /* Top 4 Stat Cards */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .progression-panel {
+            display: grid;
+            grid-template-columns: minmax(0, 1.2fr) minmax(220px, 1fr);
+            gap: 18px;
+            align-items: center;
+            margin: 0 0 20px;
+            padding: 18px 22px;
+            border-radius: 18px;
+            color: #fff;
+            background: linear-gradient(115deg, #29245e, #5c52e6 62%, #8b73f2);
+            box-shadow: 0 10px 26px rgba(49, 42, 130, .22);
+        }
+        .progression-title { display:flex; align-items:center; gap:10px; font-weight:700; }
+        .progression-level { display:inline-flex; align-items:center; justify-content:center; min-width:42px; height:42px; border-radius:13px; background:rgba(255,255,255,.16); border:1px solid rgba(255,255,255,.24); font-size:18px; }
+        .progression-sub { color:rgba(255,255,255,.78); font-size:12px; margin-top:3px; }
+        .xp-track { height:9px; border-radius:99px; overflow:hidden; background:rgba(255,255,255,.2); margin-top:10px; }
+        .xp-fill { height:100%; width:0; border-radius:99px; background:linear-gradient(90deg,#ffe08a,#fff5c6); transition:width .35s ease; }
+        .challenge-box { padding-left:18px; border-left:1px solid rgba(255,255,255,.22); }
+        .challenge-label { font-size:11px; letter-spacing:.08em; color:#fce7a4; font-weight:700; }
+        .challenge-text { font-weight:600; margin-top:4px; }
+        .challenge-progress { font-size:12px; color:rgba(255,255,255,.78); margin-top:3px; }
+        @media (max-width: 700px) { .progression-panel { grid-template-columns:1fr; gap:14px; padding:16px; } .challenge-box { border-left:0; border-top:1px solid rgba(255,255,255,.22); padding:12px 0 0; } }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            padding: 18px 22px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+        }
+
+        .stat-card-label {
+            font-size: 12.5px;
+            color: var(--muted);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+
+        .stat-card-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.1;
+        }
+
+        .stat-card-sub {
+            font-size: 11.5px;
+            color: #64748b;
+            margin-top: 6px;
+        }
+
+        .energy-bar-wrap {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .energy-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Game Layout: Activities Grid + Side Stack */
+        .game-main-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(320px, 1fr);
+            gap: 20px;
+        }
+
+        /* Activities Section */
+        .activities-panel {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .panel-heading {
+            margin-bottom: 18px;
+        }
+
+        .panel-heading h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-heading p {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        .places-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .place-card {
+            background: #ffffff;
+            border: 1.5px solid #edf2f7;
+            border-radius: 18px;
+            padding: 18px;
+            text-align: left;
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+            transition: all 0.22s ease;
+        }
+
+        .place-card:hover:not(:disabled) {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 24px rgba(92, 82, 230, 0.15);
+            background: #fafbff;
+        }
+
+        .place-icon {
+            font-size: 32px;
+            width: 48px;
+            height: 48px;
+            background: #f8fafc;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .place-info {
+            flex: 1;
+        }
+
+        .place-info h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .place-info p {
+            font-size: 12px;
+            color: var(--muted);
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .place-cost {
+            display: inline-block;
+            font-size: 11.5px;
+            font-weight: 700;
+            color: var(--primary);
+            background: #f0f1ff;
+            padding: 4px 10px;
+            border-radius: 8px;
+        }
+
+        /* Right Side Stack: Energy, Cards, Log */
+        .side-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .side-panel {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            border-radius: 22px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .side-panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .side-panel-header h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Energy Dots */
+        .energy-dots-wrap {
+            display: flex;
+            gap: 6px;
+            margin: 12px 0 16px;
+        }
+
+        .energy-dot {
+            height: 12px;
+            flex: 1;
+            border-radius: 6px;
+            background: #e2e8f0;
+            transition: all 0.25s ease;
+        }
+
+        .energy-dot.active {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+        }
+
+        .end-day-btn {
+            width: 100%;
+            padding: 13px;
+            background: #1e293b;
+            color: #ffffff;
+            border-radius: 14px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+        }
+
+        .end-day-btn:hover {
+            background: #0f172a;
+            transform: translateY(-2px);
+        }
+
+        /* Cards Deck */
+        .cards-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+
+        .card-item {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .card-item-top {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-item-icon {
+            font-size: 20px;
+        }
+
+        .card-item-title {
+            font-size: 12.5px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .card-item-desc {
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        .card-item-btn {
+            padding: 6px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        .empty-cards-state {
+            grid-column: 1 / -1;
+            padding: 24px;
+            text-align: center;
+            border: 1.5px dashed #cbd5e1;
+            border-radius: 14px;
+            color: #94a3b8;
+            font-size: 12.5px;
+        }
+
+        /* Activity Log */
+        .log-list {
+            max-height: 220px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-right: 4px;
+        }
+
+        .log-item {
+            display: flex;
+            gap: 10px;
+            font-size: 12px;
+            align-items: flex-start;
+        }
+
+        .log-badge {
+            width: 26px;
+            height: 26px;
+            background: #f1f5f9;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .log-body b {
+            color: #1e293b;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .log-body span {
+            color: #64748b;
+        }
+
+        /* ============================================================
+           MODALS & OVERLAYS
+           ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 16, 28, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            border-radius: 26px;
+            width: min(540px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 32px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+            position: relative;
+            text-align: left;
+        }
+
+        .modal-box.center {
+            text-align: center;
+        }
+
+        .modal-icon-big {
+            font-size: 56px;
+            margin-bottom: 12px;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 8px;
+        }
+
+        .modal-desc {
+            font-size: 13.5px;
+            color: #64748b;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal-close-x {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            color: #64748b;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close-x:hover {
+            background: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .info-card {
+            background: #f8fafc;
+            border-radius: 14px;
+            padding: 14px;
+            margin-bottom: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .info-card h5 {
+            font-size: 13.5px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-card p {
+            font-size: 12px;
+            color: #64748b;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Toast notification */
+        .toast-msg {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 200;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-size: 13.5px;
+            font-weight: 500;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .career-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .game-main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .title-main-layout {
+                margin-left: 0;
+            }
+
+            .title-logo {
+                font-size: 46px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .title-content {
+                padding: 18px 20px;
+            }
+
+            .title-logo {
+                font-size: 40px;
+            }
+
+            .title-menu-list {
+                width: 100%;
+                max-width: 280px;
+            }
+
+            .places-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Mouse Click Visual Effects (VFX) */
+        .click-vfx-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999999;
+            overflow: hidden;
+        }
+
+        .click-ripple {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            border: 2px solid rgba(255, 215, 0, 0.9);
+            box-shadow: 0 0 16px rgba(255, 215, 0, 0.7);
+            pointer-events: none;
+            animation: rippleExpand 0.5s cubic-bezier(0.12, 0.8, 0.32, 1) forwards;
+        }
+
+        @keyframes rippleExpand {
+            0% {
+                width: 8px;
+                height: 8px;
+                opacity: 1;
+                border-width: 3px;
+            }
+
+            100% {
+                width: 70px;
+                height: 70px;
+                opacity: 0;
+                border-width: 1px;
+            }
+        }
+
+        .click-sparkle {
+            position: absolute;
+            pointer-events: none;
+            font-size: 14px;
+            transform: translate(-50%, -50%);
+            animation: sparkleFly 0.65s cubic-bezier(0.16, 0.84, 0.44, 1) forwards;
+            filter: drop-shadow(0 0 6px rgba(255, 215, 0, 0.85));
+            user-select: none;
+        }
+
+        @keyframes sparkleFly {
+            0% {
+                transform: translate(-50%, -50%) translate(0, 0) scale(0.6) rotate(0deg);
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) translate(var(--tx), var(--ty)) scale(1.25) rotate(var(--rot));
+            }
+
+            100% {
+                transform: translate(-50%, -50%) translate(calc(var(--tx) * 1.35), calc(var(--ty) + 24px)) scale(0.2) rotate(calc(var(--rot) * 1.5));
+                opacity: 0;
+            }
+        }
+
+        /* Settings Sliders & Controls */
+        .setting-slider-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 100%;
+        }
+
+        .setting-slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 6px;
+            background: #e2e8f0;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(92, 82, 230, 0.4);
+            transition: transform 0.1s;
+        }
+
+        .volume-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.25);
+        }
+
+        .track-select {
+            width: 100%;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid #cbd5e1;
+            background: #ffffff;
+            font-family: inherit;
+            font-size: 13px;
+            color: #334155;
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* Unified Custom Vector Logo & Icon Styling */
+        .ui-icon-svg {
+            display: inline-block;
+            vertical-align: -3px;
+            width: 18px;
+            height: 18px;
+            margin-right: 6px;
+            flex-shrink: 0;
+        }
+
+        .tag-icon-svg {
+            display: inline-block;
+            vertical-align: -2.5px;
+            width: 14px;
+            height: 14px;
+            margin-right: 4px;
+            flex-shrink: 0;
+        }
+
+        .place-svg-icon {
+            width: 30px;
+            height: 30px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .career-card .emoji-badge svg {
+            width: 40px;
+            height: 40px;
+            display: block;
+        }
+
+        .modal-icon-big svg {
+            width: 52px;
+            height: 52px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .log-icon-svg {
+            width: 16px;
+            height: 16px;
+            display: block;
+            margin: auto;
+        }
+
+        .card-item-svg {
+            width: 24px;
+            height: 24px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+    
+        /* RORO Visual Upgrade: glass panels, richer depth and motion */
+        :root {
+            --roro-glass: rgba(255,255,255,.78);
+            --roro-shadow: 0 18px 45px rgba(31, 41, 80, .16);
+            --roro-glow: 0 0 24px rgba(111, 96, 255, .22);
+        }
+        body { background: radial-gradient(ellipse at 12% 0%, #f1edff 0%, transparent 42%), radial-gradient(ellipse at 90% 18%, #e5f8f1 0%, transparent 38%), #f7f8fc; }
+        button, .btn, [role="button"] { transition: transform .18s ease, box-shadow .22s ease, filter .22s ease; }
+        button:not(:disabled):hover, .btn:hover, [role="button"]:hover { transform: translateY(-2px); filter: saturate(1.08); }
+        button:not(:disabled):active, .btn:active { transform: translateY(1px) scale(.985); }
+        button:focus-visible, [role="button"]:focus-visible { outline: 3px solid rgba(92,82,230,.45); outline-offset: 3px; }
+        .place-card, .panel, .card, .modal, .log-item, .resource-card, .stat-card, .game-panel {
+            transition: transform .24s ease, box-shadow .25s ease, border-color .25s ease;
+        }
+        .place-card, .panel, .card, .modal, .resource-card, .stat-card, .game-panel {
+            box-shadow: var(--roro-shadow);
+        }
+        .place-card:hover, .resource-card:hover, .stat-card:hover { box-shadow: var(--roro-shadow), var(--roro-glow); }
+        .place-card { position: relative; overflow: hidden; }
+        .place-card::after {
+            content: ""; position: absolute; inset: 0; pointer-events: none;
+            background: linear-gradient(120deg, rgba(255,255,255,.28), transparent 36%, rgba(255,255,255,.12));
+            opacity: .55; transition: opacity .2s ease;
+        }
+        .place-card:hover::after { opacity: 1; }
+        .pill-btn, .primary-btn, .action-btn, button.primary {
+            box-shadow: 0 7px 18px rgba(92,82,230,.2);
+        }
+        .pill-btn:hover, .primary-btn:hover, .action-btn:hover, button.primary:hover {
+            box-shadow: 0 10px 25px rgba(92,82,230,.3);
+        }
+        .log-item { animation: roroSlideIn .38s cubic-bezier(.2,.8,.2,1) both; }
+        .log-badge { filter: drop-shadow(0 3px 5px rgba(92,82,230,.18)); }
+        .toast, .notification, .floating-message { animation: roroPop .35s cubic-bezier(.2,.8,.2,1) both; }
+        .modal, [role="dialog"] { animation: roroModalIn .32s cubic-bezier(.2,.8,.2,1) both; }
+        .energy-bar, .progress-bar, .meter-fill { transition: width .55s cubic-bezier(.22,1,.36,1); }
+        .roro-particle-layer { position: fixed; inset: 0; pointer-events: none; overflow: hidden; z-index: 9998; }
+        .roro-particle {
+            position: fixed; left: 0; top: 0; pointer-events: none; font-size: 16px;
+            will-change: transform, opacity; animation: roroParticle .85s ease-out forwards;
+            filter: drop-shadow(0 2px 5px rgba(92,82,230,.25));
+        }
+        .roro-ambient {
+            position: fixed; width: 230px; height: 230px; border-radius: 50%;
+            pointer-events: none; z-index: 0; opacity: .18; filter: blur(55px);
+            background: #8b80ff; animation: roroFloat 11s ease-in-out infinite alternate;
+        }
+        .roro-ambient.one { top: 12%; left: -90px; }
+        .roro-ambient.two { bottom: 8%; right: -100px; background: #64d8b5; animation-delay: -4s; }
+        @keyframes roroSlideIn { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes roroPop { 0% { opacity: 0; transform: scale(.94) translateY(7px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes roroModalIn { from { opacity: 0; transform: translateY(12px) scale(.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes roroParticle { 0% { opacity: 1; transform: translate(0,0) scale(.65) rotate(0); } 100% { opacity: 0; transform: translate(var(--dx),var(--dy)) scale(1.3) rotate(100deg); } }
+        @keyframes roroFloat { from { transform: translate3d(0,-12px,0) scale(.92); } to { transform: translate3d(28px,22px,0) scale(1.12); } }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+        }
+</style>
+</head>
+
+<body>
+    <!-- Reusable Vector Logo & Icon Definitions -->
+    <svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <!-- Metallic Gold Gradient -->
+            <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FFFDF0" />
+                <stop offset="30%" stop-color="#FDE047" />
+                <stop offset="70%" stop-color="#F59E0B" />
+                <stop offset="100%" stop-color="#B45309" />
+            </linearGradient>
+            <!-- Royal Cyan Gemstone Gradient -->
+            <linearGradient id="gemGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#FFFFFF" />
+                <stop offset="45%" stop-color="#38BDF8" />
+                <stop offset="100%" stop-color="#0284C7" />
+            </linearGradient>
+            <!-- Gold Coin Gradient -->
+            <linearGradient id="coinGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#FEF08A" />
+                <stop offset="60%" stop-color="#EAB308" />
+                <stop offset="100%" stop-color="#A16207" />
+            </linearGradient>
+            <!-- Electric Energy Gradient -->
+            <linearGradient id="energyGrad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#C084FC" />
+                <stop offset="50%" stop-color="#818CF8" />
+                <stop offset="100%" stop-color="#4F46E5" />
+            </linearGradient>
+
+            <!-- 1. Custom Royal Crown Logo Symbol -->
+            <g id="logo-crown">
+                <rect x="9" y="33" width="30" height="4.5" rx="2.2" fill="url(#goldGrad)" stroke="#78350F"
+                    stroke-width="0.6" />
+                <path d="M9 33 L6 17 L16 24.5 L24 9.5 L32 24.5 L42 17 L39 33 Z" fill="url(#goldGrad)" stroke="#78350F"
+                    stroke-width="0.8" stroke-linejoin="round" />
+                <circle cx="6" cy="16" r="2.4" fill="#FFFFFF" stroke="#B45309" stroke-width="0.8" />
+                <circle cx="16" cy="23.5" r="1.9" fill="url(#gemGrad)" />
+                <circle cx="24" cy="9" r="3.2" fill="#FFFBEB" stroke="#B45309" stroke-width="0.9" />
+                <circle cx="32" cy="23.5" r="1.9" fill="url(#gemGrad)" />
+                <circle cx="42" cy="16" r="2.4" fill="#FFFFFF" stroke="#B45309" stroke-width="0.8" />
+                <polygon points="24,33 26.5,35.25 24,37.5 21.5,35.25" fill="url(#gemGrad)" />
+                <circle cx="15" cy="35.25" r="1.3" fill="#FFFFFF" />
+                <circle cx="33" cy="35.25" r="1.3" fill="#FFFFFF" />
+            </g>
+
+            <!-- 2. Custom Gold Coin Symbol -->
+            <g id="icon-coin">
+                <circle cx="12" cy="12" r="10" fill="url(#coinGrad)" stroke="#854D0E" stroke-width="1.2" />
+                <circle cx="12" cy="12" r="8" fill="none" stroke="#CA8A04" stroke-width="0.8" stroke-dasharray="2 1" />
+                <text x="12" y="16" font-family="'Prompt', sans-serif" font-size="12" font-weight="900" fill="#713F12"
+                    text-anchor="middle">฿</text>
+            </g>
+
+            <!-- 3. Custom Energy Bolt Symbol -->
+            <g id="icon-energy">
+                <path d="M13 2 L4 14 L11 14 L10 22 L20 9 L13 9 Z" fill="url(#energyGrad)" stroke="#3730A3"
+                    stroke-width="1" stroke-linejoin="round" />
+            </g>
+
+            <!-- 4. Custom Calendar Symbol -->
+            <g id="icon-calendar">
+                <rect x="3" y="5" width="18" height="16" rx="3.5" fill="#EEF2FF" stroke="#4F46E5" stroke-width="1.4" />
+                <path d="M3 9.5 H21" stroke="#4F46E5" stroke-width="1.4" />
+                <rect x="7" y="2.5" width="2" height="4" rx="1" fill="#4F46E5" />
+                <rect x="15" y="2.5" width="2" height="4" rx="1" fill="#4F46E5" />
+                <circle cx="8" cy="14" r="1.2" fill="#6366F1" />
+                <circle cx="12" cy="14" r="1.2" fill="#6366F1" />
+                <circle cx="16" cy="14" r="1.2" fill="#6366F1" />
+                <circle cx="8" cy="17.5" r="1.2" fill="#6366F1" />
+                <circle cx="12" cy="17.5" r="1.2" fill="#6366F1" />
+            </g>
+
+            <!-- 5. Sound On Icon -->
+            <symbol id="icon-sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
+            </symbol>
+
+            <!-- 6. Sound Off Icon -->
+            <symbol id="icon-sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+                <line x1="23" y1="9" x2="17" y2="15" />
+                <line x1="17" y1="9" x2="23" y2="15" />
+            </symbol>
+
+            <!-- 7. Globe Icon -->
+            <symbol id="icon-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+            </symbol>
+
+            <!-- 8. Play Icon -->
+            <symbol id="icon-play" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+            </symbol>
+
+            <!-- 9. Book Open Icon -->
+            <symbol id="icon-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+            </symbol>
+
+            <!-- 10. Settings Gear Icon -->
+            <symbol id="icon-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3" />
+                <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </symbol>
+
+            <!-- 11. Home Icon -->
+            <symbol id="icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                <polyline points="9 22 9 12 15 12 15 22" />
+            </symbol>
+
+            <!-- 12. Office Building Icon -->
+            <symbol id="icon-office" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="2" width="16" height="20" rx="2" />
+                <line x1="9" y1="6" x2="9" y2="6.01" />
+                <line x1="15" y1="6" x2="15" y2="6.01" />
+                <line x1="9" y1="10" x2="9" y2="10.01" />
+                <line x1="15" y1="10" x2="15" y2="10.01" />
+                <line x1="9" y1="14" x2="9" y2="14.01" />
+                <line x1="15" y1="14" x2="15" y2="14.01" />
+                <rect x="9" y="18" width="6" height="4" />
+            </symbol>
+
+            <!-- 13. School / Book Stack Icon -->
+            <symbol id="icon-school" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5" />
+            </symbol>
+
+            <!-- 14. Shopping Bag Icon -->
+            <symbol id="icon-shop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+            </symbol>
+
+            <!-- 15. Beach / Sun Icon -->
+            <symbol id="icon-beach" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M12 4V2M12 14v-2M6.34 5.34l-1.42-1.42M19.07 5.34l1.42-1.42M4 8H2M22 8h-2" />
+                <path d="M3 18h18M5 22h14" />
+            </symbol>
+
+            <!-- 16. Freelance / Laptop Icon -->
+            <symbol id="icon-freelance" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" />
+                <line x1="2" y1="20" x2="22" y2="20" />
+                <path d="M12 17v3" />
+                <line x1="8" y1="20" x2="16" y2="20" />
+            </symbol>
+
+            <!-- 17. Handshake / Users Icon -->
+            <symbol id="icon-handshake" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </symbol>
+
+            <!-- 18. Moon Icon -->
+            <symbol id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </symbol>
+
+            <!-- 19. Scroll / File Text Icon -->
+            <symbol id="icon-scroll" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+            </symbol>
+
+            <!-- 20. Graduation Cap / Student Icon -->
+            <symbol id="icon-student" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5" />
+            </symbol>
+
+            <!-- 21. Briefcase Icon -->
+            <symbol id="icon-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="7" width="20" height="14" rx="2" />
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+            </symbol>
+
+            <!-- 22. Chart Trending Up Icon -->
+            <symbol id="icon-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                <polyline points="17 6 23 6 23 12" />
+            </symbol>
+
+            <!-- 23. Sparkle / Star Icon -->
+            <symbol id="icon-sparkle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </symbol>
+
+            <!-- 24. Target / Crosshair Icon -->
+            <symbol id="icon-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <circle cx="12" cy="12" r="6" />
+                <circle cx="12" cy="12" r="2" />
+            </symbol>
+
+            <!-- 25. Music Note Icon -->
+            <symbol id="icon-music" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" />
+                <circle cx="18" cy="16" r="3" />
+            </symbol>
+
+            <!-- 26. Bell Icon -->
+            <symbol id="icon-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </symbol>
+
+            <!-- 27. Maximize / Fullscreen Icon -->
+            <symbol id="icon-fullscreen" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 3 21 3 21 9" />
+                <polyline points="9 21 3 21 3 15" />
+                <line x1="21" y1="3" x2="14" y2="10" />
+                <line x1="3" y1="21" x2="10" y2="14" />
+            </symbol>
+
+            <!-- 28. Refresh / Reset Icon -->
+            <symbol id="icon-reset" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 4v6h-6" />
+                <path d="M1 20v-6h6" />
+                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+            </symbol>
+
+            <!-- 29. Art Palette Icon -->
+            <symbol id="icon-art" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="13.5" cy="6.5" r="0.5" fill="currentColor" />
+                <circle cx="17.5" cy="10.5" r="0.5" fill="currentColor" />
+                <circle cx="8.5" cy="7.5" r="0.5" fill="currentColor" />
+                <circle cx="6.5" cy="12.5" r="0.5" fill="currentColor" />
+                <path
+                    d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.5-.47 1.5-1.5 0-.39-.15-.74-.39-1.04-.23-.29-.38-.63-.38-1.02 0-.83.67-1.5 1.5-1.5H16c3.31 0 6-2.69 6-6 0-5.5-4.5-9.95-10-9.95z" />
+            </symbol>
+
+            <!-- 30. Lightbulb / Idea Icon -->
+            <symbol id="icon-idea" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18h6M10 22h4" />
+                <path d="M12 2a7 7 0 0 0-4 12.71V17h8v-2.29A7 7 0 0 0 12 2z" />
+            </symbol>
+
+            <!-- 31. Gift Icon -->
+            <symbol id="icon-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 12 20 22 4 22 4 12" />
+                <rect x="2" y="7" width="20" height="5" />
+                <line x1="12" y1="22" x2="12" y2="7" />
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+            </symbol>
+
+            <!-- 32. Star Icon -->
+            <symbol id="icon-star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon
+                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+            </symbol>
+
+            <!-- 33. Cards / Deck Icon -->
+            <symbol id="icon-cards" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <line x1="2" y1="10" x2="22" y2="10" />
+                <line x1="12" y1="14" x2="12" y2="18" />
+                <line x1="7" y1="14" x2="7" y2="18" />
+                <line x1="17" y1="14" x2="17" y2="18" />
+            </symbol>
+
+            <!-- 34. Rocket Icon -->
+            <symbol id="icon-rocket" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                <path
+                    d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+            </symbol>
+
+            <!-- 35. Trophy Icon -->
+            <symbol id="icon-trophy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                <path d="M4 22h16" />
+                <path
+                    d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22h10c0-2-1-3.25-2.03-3.79A1.07 1.07 0 0 1 14 17v-2.34" />
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2z" />
+            </symbol>
+
+            <!-- 36. Heart Broken Icon -->
+            <symbol id="icon-heartbreak" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19.5 12.572l-7.5 7.428-7.5-7.428a5 5 0 1 1 7.5-6.566 5 5 0 1 1 7.5 6.572z" />
+                <path d="M12 6l-2 4 4 2-2 4" />
+            </symbol>
+
+            <!-- 37. Warning / Alert Triangle Icon -->
+            <symbol id="icon-warning" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+            </symbol>
+
+            <!-- 38. Door / Exit Icon -->
+            <symbol id="icon-door" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <polyline points="16 17 21 12 16 7" />
+                <line x1="21" y1="12" x2="9" y2="12" />
+            </symbol>
+
+            <!-- 39. Map Icon -->
+            <symbol id="icon-map" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
+                <line x1="8" y1="2" x2="8" y2="18" />
+                <line x1="16" y1="6" x2="16" y2="22" />
+            </symbol>
+
+            <!-- 40. Refresh Icon -->
+            <symbol id="icon-refresh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10" />
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+            </symbol>
+
+            <!-- 41. Coffee Icon -->
+            <symbol id="icon-coffee" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
+                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
+                <line x1="6" y1="1" x2="6" y2="4" />
+                <line x1="10" y1="1" x2="10" y2="4" />
+                <line x1="14" y1="1" x2="14" y2="4" />
+            </symbol>
+
+            <!-- 42. Shield Icon -->
+            <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </symbol>
+
+            <!-- 43. Clover / Luck Icon -->
+            <symbol id="icon-clover" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2a4 4 0 0 1 4 4c0 2-4 6-4 6s-4-4-4-6a4 4 0 0 1 4-4z" />
+                <path d="M22 12a4 4 0 0 1-4 4c-2 0-6-4-6-4s4-4 6-4a4 4 0 0 1 4 4z" />
+                <path d="M12 22a4 4 0 0 1-4-4c0-2 4-6 4-6s4 4 4 6a4 4 0 0 1-4 4z" />
+                <path d="M2 12a4 4 0 0 1 4-4c2 0 6 4 6 4s-4 4-6 4a4 4 0 0 1-4-4z" />
+            </symbol>
+
+            <!-- 44. Money Bill Icon -->
+            <symbol id="icon-money" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="4" width="22" height="16" rx="2" />
+                <circle cx="12" cy="12" r="4" />
+                <path d="M1 10h2M21 10h2M1 14h2M21 14h2" />
+            </symbol>
+
+            <!-- 45. Bar Chart Icon -->
+            <symbol id="icon-barchart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="20" x2="12" y2="10" />
+                <line x1="18" y1="20" x2="18" y2="4" />
+                <line x1="6" y1="20" x2="6" y2="16" />
+            </symbol>
+
+            <!-- 46. Timer / Clock Icon -->
+            <symbol id="icon-timer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+            </symbol>
+
+            <!-- 47. Medal Icon -->
+            <symbol id="icon-medal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M7.21 15L2.66 7.14a2 2 0 0 1 .13-2.23l.55-.73A2 2 0 0 1 4.94 3h14.12a2 2 0 0 1 1.6.8l.55.73a2 2 0 0 1 .13 2.2L16.79 15" />
+                <circle cx="12" cy="17" r="5" />
+            </symbol>
+
+            <!-- 48. Info / Help Icon -->
+            <symbol id="icon-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="16" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12.01" y2="8" />
+            </symbol>
+
+            <!-- 49. Check Circle Icon -->
+            <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                <polyline points="22 4 12 14.01 9 11.01" />
+            </symbol>
+
+            <!-- 50. Flag Icon -->
+            <symbol id="icon-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" />
+                <line x1="4" y1="22" x2="4" y2="15" />
+            </symbol>
+        </defs>
+    </svg>
+
+    <!-- Background Music Audio Element -->
+    <audio id="bgmAudio" src="bgm.mp3" loop preload="auto"></audio>
+
+    <!-- Mouse Click Visual Effects Container -->
+    <div id="clickVfxContainer" class="click-vfx-container"></div>
+
+    <!-- =========================================================
+         SCREEN 1: TITLE / MAIN MENU SCREEN (Matching Image 1)
+         ========================================================= -->
+    <div id="screen-title">
+        <!-- City Background -->
+        <div class="title-bg"></div>
+        <div class="title-vignette"></div>
+        <div class="title-ambient-shadow"></div>
+
+        <div class="title-content">
+            <!-- Top Right Bar -->
+            <div class="title-topbar">
+                <button id="soundToggleBtn" class="pill-btn" onclick="toggleSound()">
+                    <span id="soundIcon">🔊</span> <span id="soundText">เปิดเสียงอยู่</span>
+                </button>
+                <button class="pill-btn" onclick="openModal('lang')">
+                    <span>🌐</span> <span>ไทย</span>
+                </button>
+            </div>
+
+            <!-- Left Hero Section: Crown, Title, Tagline, Buttons -->
+            <div class="title-main-layout">
+                <!-- Golden Crown Custom Logo -->
+                <div class="crown-emblem">
+                    <svg viewBox="0 0 48 48" class="crown-logo-svg">
+                        <use href="#logo-crown" />
+                    </svg>
+                </div>
+
+                <!-- Game Title -->
+                <h1 class="title-logo">
+                    <span>Go To</span>
+                    <span>Wealth</span>
+                </h1>
+
+                <!-- Subtitle Tagline -->
+                <div class="title-tagline">เมืองเล็ก ๆ กับความฝันที่ยิ่งใหญ่</div>
+
+                <!-- Main Menu Buttons -->
+                <div class="title-menu-list">
+                    <!-- Play Game -->
+                    <button class="menu-btn" onclick="showCareerSelect()">
+                        <span class="menu-btn-content">
+                            <span>▷</span> <span>เริ่มเกม</span>
+                        </span>
+                        <span class="chevron">›</span>
+                    </button>
+
+                    <!-- Rules / How to play -->
+                    <button class="menu-btn" onclick="openModal('rules')">
+                        <span class="menu-btn-content">
+                            <span>📖</span> <span>วิธีเล่น</span>
+                        </span>
+                    </button>
+
+                    <!-- Settings -->
+                    <button class="menu-btn" onclick="openModal('settings')">
+                        <span class="menu-btn-content">
+                            <span>⚙️</span> <span>ตั้งค่า</span>
+                        </span>
+                    </button>
+
+                    <!-- Exit / Restart session -->
+                    <button class="menu-btn menu-btn-exit" onclick="confirmExit()">
+                        <span>[→ ออกจากเกม</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="title-bottombar">
+                <div>Go To Wealth • เวอร์ชั่น 1.0.0</div>
+                <div class="title-bottombar-right">
+                    <button class="small-dark-btn" onclick="openModal('credits')">ผู้จัดทำ</button>
+                    <button class="small-dark-btn icon-btn" title="เต็มจอ" onclick="toggleFullscreen()">⛶</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         SCREEN 2: CAREER SELECTION MODAL
+         ========================================================= -->
+    <div id="screen-career" class="hidden">
+        <div class="career-modal-card">
+            <button class="close-corner-btn" onclick="closeCareerSelect()">✕</button>
+            <div class="career-header">
+                <div class="crown-emblem" style="margin:0 auto 12px;transform:scale(1.2)">
+                    <svg viewBox="0 0 48 48" class="crown-logo-svg">
+                        <use href="#logo-crown" />
+                    </svg>
+                </div>
+                <h2>เลือกเส้นทางชีวิตของคุณ</h2>
+                <p>เริ่มต้นชีวิตในเมือง Go To Wealth แต่ละเส้นทางมีเงินทุน พลังงาน และสไตล์การเล่นที่แตกต่างกัน</p>
+            </div>
+
+            <div class="career-grid">
+                <!-- Career 1 -->
+                <div class="career-card">
+                    <div class="emoji-badge">🎓</div>
+                    <h3>นักศึกษา</h3>
+                    <p>เริ่มต้นด้วยเงินน้อย แต่มีพลังงานเยอะ เรียนรู้และพัฒนาทักษะชีวิตได้อย่างรวดเร็ว
+                        เหมาะกับสายวางแผนระยะยาว</p>
+                    <div class="career-tags">
+                        <span class="tag-pill">💰 ทุน ฿350</span>
+                        <span class="tag-pill">⚡ 5 พลังงาน</span>
+                        <span class="tag-pill">✨ เรียนรู้ไว</span>
+                    </div>
+                    <button class="career-select-btn" onclick="startChosenCareer('student')">เลือกเส้นทางนี้ →</button>
+                </div>
+
+                <!-- Career 2 -->
+                <div class="career-card">
+                    <div class="emoji-badge">💼</div>
+                    <h3>คนทำงาน</h3>
+                    <p>มีเงินตั้งต้นและพลังงานที่สมดุล มีรายได้จากงานประจำที่มั่นคง
+                        เหมาะสำหรับผู้ที่ชอบความมั่นคงและสะสมเงินทีละก้าว</p>
+                    <div class="career-tags">
+                        <span class="tag-pill">💰 ทุน ฿700</span>
+                        <span class="tag-pill">⚡ 4 พลังงาน</span>
+                        <span class="tag-pill">🏢 รายได้มั่นคง</span>
+                    </div>
+                    <button class="career-select-btn" onclick="startChosenCareer('worker')">เลือกเส้นทางนี้ →</button>
+                </div>
+
+                <!-- Career 3 -->
+                <div class="career-card">
+                    <div class="emoji-badge">📈</div>
+                    <h3>นักลงทุน</h3>
+                    <p>มีทุนเริ่มต้นสูงมาก แต่พลังงานมีจำกัด ต้องเน้นการตัดสินใจที่คุ้มค่า
+                        เลือกซื้อการ์ดและลงทุนอย่างชาญฉลาด</p>
+                    <div class="career-tags">
+                        <span class="tag-pill">💰 ทุน ฿1,200</span>
+                        <span class="tag-pill">⚡ 3 พลังงาน</span>
+                        <span class="tag-pill">📊 ผลตอบแทนสูง</span>
+                    </div>
+                    <button class="career-select-btn" onclick="startChosenCareer('investor')">เลือกเส้นทางนี้ →</button>
+                </div>
+            </div>
+
+            <div style="text-align:center">
+                <button class="pill-btn" onclick="closeCareerSelect()">← กลับสู่หน้าหลัก</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         SCREEN 3: GAMEPLAY DASHBOARD SCREEN
+         ========================================================= -->
+    <div id="screen-game" class="hidden">
+        <div class="game-bg-layer"></div>
+
+        <div class="game-wrapper">
+            <!-- Game Header -->
+            <header class="game-header">
+                <div class="game-header-left">
+                    <div class="game-header-brand">
+                        <span class="crown-icon-inline"><svg viewBox="0 0 48 48" width="24" height="24">
+                                <use href="#logo-crown" />
+                            </svg></span> <span>Go To Wealth</span>
+                    </div>
+                    <span id="playerCareerBadge" class="career-badge">🎓 นักศึกษา</span>
+                </div>
+                <div class="game-header-right">
+                    <button class="header-btn" onclick="returnToTitle()">🏠 เมนูหลัก</button>
+                    <button class="header-btn" onclick="confirmRestart()">↻ เริ่มใหม่</button>
+                </div>
+            </header>
+
+            <!-- Status Grid (4 Cards with Custom Vector Logos) -->
+            <div class="status-grid">
+                <div class="stat-card">
+                    <div class="stat-card-label"><svg class="stat-icon-svg" viewBox="0 0 24 24" width="18" height="18">
+                            <use href="#icon-coin" />
+                        </svg> เงินสะสมปัจจุบัน</div>
+                    <div id="money" class="stat-card-value">฿0</div>
+                    <div class="stat-card-sub">เงินทุนในกระเป๋า</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-label"><svg class="stat-icon-svg" viewBox="0 0 24 24" width="18" height="18">
+                            <use href="#icon-energy" />
+                        </svg> พลังงานประจำวัน</div>
+                    <div id="energy" class="stat-card-value">0 / 0</div>
+                    <div class="energy-bar-wrap">
+                        <div id="energyBar" class="energy-bar-fill" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-label"><svg class="stat-icon-svg" viewBox="0 0 24 24" width="18" height="18">
+                            <use href="#icon-calendar" />
+                        </svg> วันเดินทาง</div>
+                    <div id="day" class="stat-card-value">1 / 28</div>
+                    <div id="week" class="stat-card-sub">สัปดาห์ที่ 1</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-card-label"><svg class="stat-icon-svg" viewBox="0 0 48 48" width="18" height="18">
+                            <use href="#logo-crown" />
+                        </svg> เป้าหมายบอสสัปดาห์</div>
+                    <div id="target" class="stat-card-value">฿500</div>
+                    <div id="targetSub" class="stat-card-sub">ต้องมีเงินถึงเป้าหมาย</div>
+                </div>
+            </div>
+
+            <!-- Player progression and rotating challenge -->
+            <section class="progression-panel" aria-label="ความก้าวหน้าผู้เล่น">
+                <div>
+                    <div class="progression-title"><span class="progression-level" id="playerLevel">1</span><div><div>⭐ ระดับประสบการณ์</div><div class="progression-sub" id="xpLabel">0 / 150 EXP ถึงเลเวลถัดไป</div></div></div>
+                    <div class="xp-track"><div class="xp-fill" id="xpBar"></div></div>
+                </div>
+                <div class="challenge-box">
+                    <div class="challenge-label">🎯 ภารกิจประจำรอบ</div>
+                    <div class="challenge-text" id="challengeTitle">นักวางแผนมือใหม่</div>
+                    <div class="challenge-progress" id="challengeProgress">ทำกิจกรรมให้ครบ 5 ครั้ง · 0 / 5</div>
+                </div>
+            </section>
+
+            <!-- Main Layout: Activities Grid (Left) + Status/Log Stack (Right) -->
+            <div class="game-main-grid">
+                <!-- Activities Panel -->
+                <div class="activities-panel">
+                    <div class="panel-heading">
+                        <h3>🗺️ เลือกสถานที่ทำกิจกรรม</h3>
+                        <p>สำรวจสถานที่ต่าง ๆ ในเมือง Go To Wealth เพื่อทำงาน พักผ่อน หรือหาของรางวัล</p>
+                    </div>
+
+                    <div class="places-grid">
+                        <!-- Office -->
+                        <button class="place-card" onclick="visit('work')">
+                            <div class="place-icon">🏢</div>
+                            <div class="place-info">
+                                <h4>อาคารออฟฟิศ</h4>
+                                <p>ทำงานสร้างรายได้ประจำ สั่งสมประสบการณ์และลุ้นโบนัสพิเศษ</p>
+                                <span class="place-cost">⚡ ใช้ 2 พลังงาน · ได้รับเงิน</span>
+                            </div>
+                        </button>
+
+                        <!-- Learning Academy -->
+                        <button class="place-card" onclick="visit('learn')">
+                            <div class="place-icon">📚</div>
+                            <div class="place-info">
+                                <h4>สถาบันการเรียนรู้</h4>
+                                <p>พัฒนาทักษะชีวิต เพิ่มระดับความสามารถ และลุ้นรับการ์ดไอเท็ม</p>
+                                <span class="place-cost">⚡ ใช้ 2 พลังงาน · เพิ่มทักษะ</span>
+                            </div>
+                        </button>
+
+                        <!-- Shop -->
+                        <button class="place-card" onclick="visit('shop')">
+                            <div class="place-icon">🛍️</div>
+                            <div class="place-info">
+                                <h4>ร้านค้า / ซุปเปอร์มาร์เก็ต</h4>
+                                <p>ช็อปปิ้งสุ่มการ์ดพิเศษที่จะช่วยในการเดินทางของคุณ</p>
+                                <span class="place-cost">⚡ ใช้ 1 พลังงาน · ค่าสินค้า ฿100</span>
+                            </div>
+                        </button>
+
+                        <!-- Beach & Park -->
+                        <button class="place-card" onclick="visit('rest')">
+                            <div class="place-icon">🏖️</div>
+                            <div class="place-info">
+                                <h4>ชายหาด & สวนพักผ่อน</h4>
+                                <p>พักผ่อนริมทะเล ฟื้นฟูพลังงานและรับแรงบันดาลใจใหม่ ๆ</p>
+                                <span class="place-cost">⚡ ใช้ 1 พลังงาน · ฟื้นฟูพลังงาน</span>
+                            </div>
+                        </button>
+
+                        <!-- Freelance Online -->
+                        <button class="place-card" onclick="visit('gig')">
+                            <div class="place-icon">🧑‍💻</div>
+                            <div class="place-info">
+                                <h4>งานเสริมออนไลน์</h4>
+                                <p>รับงานฟรีแลนซ์ด่วน ใช้พลังงานน้อยแต่รายได้ขึ้นอยู่กับฝีมือ</p>
+                                <span class="place-cost">⚡ ใช้ 1 พลังงาน · ลุ้นรายได้ด่วน</span>
+                            </div>
+                        </button>
+
+                        <!-- Business Club / Network -->
+                        <button class="place-card" onclick="visit('network')">
+                            <div class="place-icon">🤝</div>
+                            <div class="place-info">
+                                <h4>ชมรมธุรกิจ / เน็ตเวิร์ก</h4>
+                                <p>พบปะพูดคุยกับผู้คนในเมือง เพิ่มโอกาสโชคดีในเหตุการณ์ข้างหน้า</p>
+                                <span class="place-cost">⚡ ใช้ 1 พลังงาน · ค่ากิจกรรม ฿50</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Side Stack -->
+                <div class="side-stack">
+                    <!-- Energy Panel -->
+                    <div class="side-panel">
+                        <div class="side-panel-header">
+                            <h4>⚡ พลังงานที่เหลือ</h4>
+                            <span id="energyText" style="font-size:12.5px;color:var(--muted);font-weight:600">4
+                                เหลือ</span>
+                        </div>
+                        <div id="energyDots" class="energy-dots-wrap"></div>
+                        <button id="endDayBtn" class="end-day-btn" onclick="endDay(true)">
+                            <span>🌙</span> <span>จบวันและพักผ่อน</span>
+                        </button>
+                    </div>
+
+                    <!-- Cards Deck -->
+                    <div class="side-panel">
+                        <div class="side-panel-header">
+                            <h4>🃏 การ์ดของคุณ</h4>
+                            <span id="cardCount" class="tag-pill">0 / 4</span>
+                        </div>
+                        <div id="cardsList" class="cards-list">
+                            <div class="empty-cards-state">
+                                ยังไม่มีการ์ดสะสม<br>แวะร้านค้าหรือพัฒนาตัวเองเพื่อรับการ์ด
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Journey Log -->
+                    <div class="side-panel">
+                        <div class="side-panel-header">
+                            <h4>📜 บันทึกการเดินทาง</h4>
+                            <span style="font-size:11px;color:var(--muted)">ล่าสุด</span>
+                        </div>
+                        <div id="logList" class="log-list"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         MODALS (Rules, Settings, Credits, Language, Alerts)
+         ========================================================= -->
+    <!-- Rules Modal -->
+    <div id="modal-rules" class="modal-overlay hidden">
+        <div class="modal-box">
+            <button class="modal-close-x" onclick="closeModal('rules')">✕</button>
+            <div class="modal-title">📖 วิธีเล่น Go To Wealth</div>
+            <div class="modal-desc">เรียนรู้กติกาการบริหารจัดการชีวิตและการเงินภายใน 28 วัน</div>
+
+            <div class="info-card">
+                <h5>🎯 ภารกิจหลัก</h5>
+                <p>เป้าหมายคือเอาชีวิตรอดและสะสมเงินให้ผ่านเกณฑ์ <b>"เป้าหมายบอสสัปดาห์"</b> ทุก ๆ 7 วัน
+                    หากเงินไม่ถึงเกณฑ์เมื่อครบกำหนด จะจบเกมทันที!</p>
+            </div>
+
+            <div class="info-card">
+                <h5>👑 เกณฑ์เงินเป้าหมาย 4 สัปดาห์</h5>
+                <p>• สัปดาห์ที่ 1 (วันที่ 7): <b>฿500</b><br>
+                    • สัปดาห์ที่ 2 (วันที่ 14): <b>฿1,500</b><br>
+                    • สัปดาห์ที่ 3 (วันที่ 21): <b>฿3,000</b><br>
+                    • สัปดาห์ที่ 4 (วันที่ 28): <b>฿5,000</b> (ชนะเกม!)</p>
+            </div>
+
+            <div class="info-card">
+                <h5>⚡ การจัดการพลังงาน</h5>
+                <p>แต่ละวันมีพลังงานจำกัด การทำกิจกรรมในเมืองจะใช้พลังงาน เมื่อพลังงานหมดหรือเลือก "จบวัน"
+                    ระบบจะข้ามไปสู่วันถัดไปและฟื้นพลังงานให้เต็ม</p>
+            </div>
+
+            <div class="info-card">
+                <h5>🃏 การ์ดช่วยเหลือพิเศษ</h5>
+                <p>คุณสามารถถือการ์ดได้สูงสุด 4 ใบ หาได้จากการเรียนรู้หรือซื้อจากร้านค้า ใช้ในเวลาที่คับขันเพื่อรับเงิน
+                    หรือลดการใช้พลังงาน</p>
+            </div>
+
+            <button class="career-select-btn" style="margin-top:14px" onclick="closeModal('rules')">เข้าใจแล้ว</button>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="modal-settings" class="modal-overlay hidden">
+        <div class="modal-box">
+            <button class="modal-close-x" onclick="closeModal('settings')">✕</button>
+            <div class="modal-title">⚙️ ตั้งค่าเกม & เสียง</div>
+            <div class="modal-desc">ปรับแต่งเสียงเพลง เอฟเฟกต์ และความลื่นไหลในการเล่น</div>
+
+            <!-- Master Sound Switch -->
+            <div class="info-card" style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                    <h5>🔊 เสียงหลัก (Master Audio)</h5>
+                    <p>เปิด/ปิดเสียงเพลงและเอฟเฟกต์ทั้งหมด</p>
+                </div>
+                <button id="modalSoundBtn" class="pill-btn" onclick="toggleSound()">เปิดเสียง</button>
+            </div>
+
+            <!-- BGM Track Selector -->
+            <div class="info-card">
+                <div class="setting-slider-row">
+                    <div class="setting-slider-header">
+                        <span>🎵 เพลงประกอบ (BGM Track)</span>
+                    </div>
+                    <select id="bgmTrackSelect" class="track-select" onchange="changeBgmTrack(this.value)">
+                        <option value="0">🎷 Mas Cafe - Casa Rosa (Cozy Town Jazz)</option>
+                        <option value="1">🎺 Beautiful Wonderful You (Sunny Coastal Walk)</option>
+                        <option value="2">🍸 Cocktails in Town - Dan Bodan (Chill Vibe)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- BGM Volume Slider -->
+            <div class="info-card">
+                <div class="setting-slider-row">
+                    <div class="setting-slider-header">
+                        <span>🎶 ระดับเสียงเพลง (BGM Volume)</span>
+                        <span id="bgmVolText">45%</span>
+                    </div>
+                    <input type="range" id="bgmVolSlider" class="volume-slider" min="0" max="100" value="45"
+                        oninput="setBgmVolume(this.value)">
+                </div>
+            </div>
+
+            <!-- SFX / Mouse Click & Hover Volume Slider -->
+            <div class="info-card">
+                <div class="setting-slider-row">
+                    <div class="setting-slider-header">
+                        <span>🔔 ระดับเสียงเอฟเฟกต์คลิก & เมาชี้ (SFX Volume)</span>
+                        <span id="sfxVolText">75%</span>
+                    </div>
+                    <input type="range" id="sfxVolSlider" class="volume-slider" min="0" max="100" value="75"
+                        oninput="setSfxVolume(this.value)">
+                </div>
+            </div>
+
+            <!-- Mouse Click Visual VFX Toggle -->
+            <div class="info-card" style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                    <h5>✨ แสงวิบวับเวลาคลิกเมาส์ (Click VFX)</h5>
+                    <p>แสดงเอฟเฟกต์ประกายดาวและวงแสงที่จุดคลิก</p>
+                </div>
+                <button id="vfxToggleBtn" class="pill-btn" onclick="toggleVfx()">เปิดอยู่ ✨</button>
+            </div>
+
+            <!-- Fullscreen -->
+            <div class="info-card" style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                    <h5>⛶ โหมดเต็มหน้าจอ</h5>
+                    <p>สลับการแสดงผลเต็มหน้าจอ</p>
+                </div>
+                <button class="pill-btn" onclick="toggleFullscreen()">สลับเต็มจอ</button>
+            </div>
+
+            <!-- Reset -->
+            <div class="info-card" style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                    <h5>🔄 รีเซ็ตข้อมูลทั้งหมด</h5>
+                    <p>ล้างข้อมูลรอบปัจจุบันและเริ่มใหม่</p>
+                </div>
+                <button class="pill-btn" style="color:#dc2626" onclick="resetAllGameData()">รีเซ็ต</button>
+            </div>
+
+            <button class="career-select-btn" style="margin-top:14px"
+                onclick="closeModal('settings')">ปิดหน้าต่าง</button>
+        </div>
+    </div>
+
+    <!-- Credits Modal -->
+    <div id="modal-credits" class="modal-overlay hidden">
+        <div class="modal-box center">
+            <button class="modal-close-x" onclick="closeModal('credits')">✕</button>
+            <div class="crown-emblem" style="margin:0 auto 16px;width:68px;height:68px;transform:scale(1.15)">
+                <svg viewBox="0 0 48 48" class="crown-logo-svg" style="width:42px;height:42px">
+                    <use href="#logo-crown" />
+                </svg>
+            </div>
+            <div class="modal-title">Go To Wealth</div>
+            <div class="modal-desc">เกมจำลองการบริหารการเงินและชีวิต 28 วัน<br>เวอร์ชั่น 1.0.0 Single-file Web Edition
+            </div>
+
+            <div class="info-card" style="text-align:left">
+                <h5>🎨 อาร์ตเวิร์ก & แมป</h5>
+                <p>ภาพแผนที่เมืองไอโซเมตริก "Go To Wealth Island City Map"</p>
+            </div>
+
+            <div class="info-card" style="text-align:left">
+                <h5>💡 แนวคิดเกม</h5>
+                <p>สอนเรื่องการวางแผนทรัพยากร พลังงาน เงินออม และการรับมือกับเหตุการณ์ไม่คาดฝันในชีวิตจริง</p>
+            </div>
+
+            <button class="career-select-btn" style="margin-top:14px"
+                onclick="closeModal('credits')">ปิดหน้าต่าง</button>
+        </div>
+    </div>
+
+    <!-- Language Modal -->
+    <div id="modal-lang" class="modal-overlay hidden">
+        <div class="modal-box center">
+            <button class="modal-close-x" onclick="closeModal('lang')">✕</button>
+            <div class="modal-icon-big">🌐</div>
+            <div class="modal-title">เลือกภาษา / Language</div>
+            <div class="modal-desc">ขณะนี้เกมรองรับภาษาไทยเป็นภาษาหลัก</div>
+
+            <button class="career-select-btn" style="margin-bottom:10px"
+                onclick="closeModal('lang'); toast('ภาษาไทย (เปิดใช้งานอยู่)');">🇹🇭 ภาษาไทย (เริ่มต้น)</button>
+            <button class="pill-btn" style="width:100%;justify-content:center"
+                onclick="closeModal('lang'); toast('English language pack coming soon!');">🇺🇸 English (Coming
+                soon)</button>
+        </div>
+    </div>
+
+    <!-- Generic Event / Boss / Game Over / Victory Modal -->
+    <div id="modal-general" class="modal-overlay hidden">
+        <div class="modal-box center">
+            <div id="genModalIcon" class="modal-icon-big">👑</div>
+            <div id="genModalEyebrow"
+                style="color:var(--primary);font-size:12px;font-weight:800;letter-spacing:1px;margin-bottom:6px">EVENT
+            </div>
+            <div id="genModalTitle" class="modal-title">ข้อความแจ้งเตือน</div>
+            <div id="genModalBody" class="modal-desc">รายละเอียด</div>
+            <button id="genModalBtn" class="career-select-btn" onclick="generalModalAction()">ตกลง</button>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast-msg hidden"></div>
+
+    <!-- =========================================================
+         GAME LOGIC & AUDIO SYSTEM
+         ========================================================= -->
+    <script>
+        "use strict";
+
+        /* --- Audio & VFX Engine (BGM, Click VFX, Web Audio Synthesizer) --- */
+        let audioCtx = null;
+        let isSoundEnabled = true; // Enabled by default so users hear music and click sounds immediately!
+        let isVfxEnabled = true;
+        let bgmVolume = 0.50;
+        let sfxVolume = 0.85;
+        let currentTrackIdx = 0;
+        let synthBgmTimer = null;
+        let isSynthBgmRunning = false;
+
+        const BGM_TRACKS = [
+            { name: "Mas Cafe - Casa Rosa", src: "bgm.mp3" },
+            { name: "Beautiful Wonderful You", src: "bgm2.mp3" },
+            { name: "Cocktails in Town - Dan Bodan", src: "bgm3.mp3" }
+        ];
+
+        let bgmAudio = document.getElementById("bgmAudio") || new Audio(BGM_TRACKS[0].src);
+        bgmAudio.loop = true;
+        bgmAudio.volume = bgmVolume;
+
+        function getAudioContext() {
+            if (!audioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) audioCtx = new AudioContextClass();
+            }
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        /* --- BGM Playback Controls (MP3 + Web Audio Synth Fallback) --- */
+        function startBgm() {
+            if (!isSoundEnabled) return;
+            if (!bgmAudio) bgmAudio = document.getElementById("bgmAudio") || new Audio(BGM_TRACKS[currentTrackIdx].src);
+            bgmAudio.volume = bgmVolume;
+            const playPromise = bgmAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    stopSynthBgm();
+                }).catch(error => {
+                    console.log("MP3 autoplay waiting for user interaction or file access, running synth fallback:", error);
+                    startSynthBgm();
+                });
+            }
+        }
+
+        function pauseBgm() {
+            if (bgmAudio) bgmAudio.pause();
+            stopSynthBgm();
+        }
+
+        /* Ambient Town Procedural Music Fallback (if MP3 blocked) */
+        const CHORD_PROGRESSION = [
+            [261.63, 329.63, 392.00, 493.88], // Cmaj7
+            [220.00, 261.63, 329.63, 392.00], // Am7
+            [174.61, 220.00, 261.63, 329.63], // Fmaj7
+            [196.00, 246.94, 293.66, 349.23]  // G7
+        ];
+        let synthChordIdx = 0;
+
+        function startSynthBgm() {
+            if (isSynthBgmRunning || !isSoundEnabled) return;
+            isSynthBgmRunning = true;
+            playNextSynthChord();
+            synthBgmTimer = setInterval(playNextSynthChord, 2800);
+        }
+
+        function stopSynthBgm() {
+            isSynthBgmRunning = false;
+            if (synthBgmTimer) {
+                clearInterval(synthBgmTimer);
+                synthBgmTimer = null;
+            }
+        }
+
+        function playNextSynthChord() {
+            if (!isSoundEnabled || !isSynthBgmRunning) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const now = ctx.currentTime;
+                const chord = CHORD_PROGRESSION[synthChordIdx % CHORD_PROGRESSION.length];
+                synthChordIdx++;
+
+                chord.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.12);
+                    const noteVol = (bgmVolume * 0.12) / (idx + 1);
+                    gain.gain.setValueAtTime(0.001, now + idx * 0.12);
+                    gain.gain.linearRampToValueAtTime(noteVol, now + idx * 0.12 + 0.3);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.12 + 2.4);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now + idx * 0.12);
+                    osc.stop(now + idx * 0.12 + 2.5);
+                });
+            } catch (e) { }
+        }
+
+        function changeBgmTrack(index) {
+            currentTrackIdx = parseInt(index);
+            const wasPlaying = bgmAudio && !bgmAudio.paused;
+            if (bgmAudio) bgmAudio.pause();
+            bgmAudio = new Audio(BGM_TRACKS[currentTrackIdx].src);
+            bgmAudio.loop = true;
+            bgmAudio.volume = bgmVolume;
+            if (isSoundEnabled) {
+                startBgm();
+            }
+            toast(`เปลี่ยนเพลงเป็น: ${BGM_TRACKS[currentTrackIdx].name}`);
+        }
+
+        function setBgmVolume(val) {
+            bgmVolume = val / 100;
+            if (bgmAudio) bgmAudio.volume = bgmVolume;
+            const text = document.getElementById("bgmVolText");
+            if (text) text.textContent = val + "%";
+        }
+
+        function setSfxVolume(val) {
+            sfxVolume = val / 100;
+            const text = document.getElementById("sfxVolText");
+            if (text) text.textContent = val + "%";
+            playClickVfxSound();
+        }
+
+        function toggleVfx() {
+            isVfxEnabled = !isVfxEnabled;
+            const btn = document.getElementById("vfxToggleBtn");
+            if (btn) {
+                btn.textContent = isVfxEnabled ? "เปิดอยู่ ✨" : "ปิดอยู่";
+            }
+            toast(isVfxEnabled ? "เปิดเอฟเฟกต์คลิกเมาส์แล้ว ✨" : "ปิดเอฟเฟกต์คลิกเมาส์แล้ว");
+        }
+
+        /* --- Two-Layer Tactile Mouse Click Sound VFX --- */
+        function playClickVfxSound() {
+            if (!isSoundEnabled || sfxVolume <= 0) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                if (ctx.state === 'suspended') ctx.resume();
+                const now = ctx.currentTime;
+                const vol = sfxVolume * 0.42;
+
+                // Layer 1: Crisp high transient snap
+                const osc1 = ctx.createOscillator();
+                const gain1 = ctx.createGain();
+                const f1 = 1120 + (Math.random() * 180 - 90);
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(f1, now);
+                osc1.frequency.exponentialRampToValueAtTime(f1 * 0.35, now + 0.035);
+                gain1.gain.setValueAtTime(vol * 0.7, now);
+                gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.035);
+                osc1.connect(gain1);
+                gain1.connect(ctx.destination);
+                osc1.start(now);
+                osc1.stop(now + 0.035);
+
+                // Layer 2: Warm tactile wooden pop body
+                const osc2 = ctx.createOscillator();
+                const gain2 = ctx.createGain();
+                const f2 = 540 + (Math.random() * 80 - 40);
+                osc2.type = 'triangle';
+                osc2.frequency.setValueAtTime(f2, now);
+                osc2.frequency.exponentialRampToValueAtTime(f2 * 0.28, now + 0.06);
+                gain2.gain.setValueAtTime(vol * 0.85, now);
+                gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+                osc2.connect(gain2);
+                gain2.connect(ctx.destination);
+                osc2.start(now);
+                osc2.stop(now + 0.06);
+            } catch (err) {
+                console.warn("Click SFX error:", err);
+            }
+        }
+
+        /* --- Subtle UI Mouse Hover SFX --- */
+        let lastHoverTarget = null;
+        let lastHoverTime = 0;
+        function playHoverSound() {
+            if (!isSoundEnabled || sfxVolume <= 0) return;
+            const nowMs = performance.now();
+            if (nowMs - lastHoverTime < 45) return;
+            lastHoverTime = nowMs;
+
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                if (ctx.state === 'suspended') ctx.resume();
+                const now = ctx.currentTime;
+                // Soft, polite UI hover tick blip (non-fatiguing)
+                const vol = sfxVolume * 0.12;
+
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                const baseFreq = 960 + (Math.random() * 80 - 40);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(baseFreq, now);
+                osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.22, now + 0.035);
+
+                gain.gain.setValueAtTime(vol, now);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.035);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 0.038);
+            } catch (err) { }
+        }
+
+        /* --- Game Sound Effects (Coin, Success, Game Over) --- */
+        function playSound(type) {
+            if (!isSoundEnabled || sfxVolume <= 0) return;
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                if (ctx.state === 'suspended') ctx.resume();
+                const now = ctx.currentTime;
+                const volMultiplier = sfxVolume;
+
+                if (type === 'click') {
+                    playClickVfxSound();
+                } else if (type === 'coin') {
+                    [1046, 1318].forEach((freq, idx) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                        gain.gain.setValueAtTime(0.25 * volMultiplier, now + idx * 0.08);
+                        gain.gain.linearRampToValueAtTime(0.001, now + idx * 0.08 + 0.24);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now + idx * 0.08);
+                        osc.stop(now + idx * 0.08 + 0.24);
+                    });
+                } else if (type === 'success') {
+                    [523.25, 659.25, 783.99, 1046.50].forEach((freq, idx) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+                        gain.gain.setValueAtTime(0.22 * volMultiplier, now + idx * 0.07);
+                        gain.gain.linearRampToValueAtTime(0.001, now + idx * 0.07 + 0.32);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now + idx * 0.07);
+                        osc.stop(now + idx * 0.07 + 0.32);
+                    });
+                } else if (type === 'gameover') {
+                    [440, 370, 311, 220].forEach((freq, idx) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.type = 'sawtooth';
+                        osc.frequency.setValueAtTime(freq, now + idx * 0.14);
+                        gain.gain.setValueAtTime(0.18 * volMultiplier, now + idx * 0.14);
+                        gain.gain.linearRampToValueAtTime(0.001, now + idx * 0.14 + 0.28);
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now + idx * 0.14);
+                        osc.stop(now + idx * 0.14 + 0.28);
+                    });
+                }
+            } catch (err) {
+                console.warn("Audio play error:", err);
+            }
+        }
+
+        function toggleSound() {
+            isSoundEnabled = !isSoundEnabled;
+            getAudioContext();
+            updateSoundUI();
+            if (isSoundEnabled) {
+                startBgm();
+                playSound('success');
+                toast("เปิดเสียงเพลงและเอฟเฟกต์แล้ว 🔊");
+            } else {
+                pauseBgm();
+                toast("ปิดเสียงแล้ว 🔇");
+            }
+        }
+
+        function updateSoundUI() {
+            const icon = document.getElementById("soundIcon");
+            const text = document.getElementById("soundText");
+            const modalBtn = document.getElementById("modalSoundBtn");
+            if (isSoundEnabled) {
+                if (icon) icon.textContent = "🔊";
+                if (text) text.textContent = "เปิดเสียงอยู่";
+                if (modalBtn) modalBtn.textContent = "เปิดเสียงอยู่ 🔊";
+            } else {
+                if (icon) icon.textContent = "🔇";
+                if (text) text.textContent = "เปิดเสียง";
+                if (modalBtn) modalBtn.textContent = "ปิดเสียงอยู่ 🔇";
+            }
+        }
+
+        /* --- Mouse Click Visual VFX (Ripples & Sparkle Stars) --- */
+        function createClickVfx(e) {
+            if (!isVfxEnabled) return;
+            const container = document.getElementById("clickVfxContainer");
+            if (!container) return;
+
+            const x = e.clientX;
+            const y = e.clientY;
+            if (!x && !y) return;
+
+            // 1. Glowing golden ripple ring
+            const ripple = document.createElement("div");
+            ripple.className = "click-ripple";
+            ripple.style.left = x + "px";
+            ripple.style.top = y + "px";
+            container.appendChild(ripple);
+
+            // 2. Sparkling burst particles
+            const particles = ["✨", "⭐", "🪙", "💫", "✦", "🌟"];
+            const count = 5;
+            for (let i = 0; i < count; i++) {
+                const spark = document.createElement("div");
+                spark.className = "click-sparkle";
+                spark.textContent = particles[Math.floor(Math.random() * particles.length)];
+                spark.style.left = x + "px";
+                spark.style.top = y + "px";
+
+                const angle = (Math.PI * 2 / count) * i + (Math.random() * 0.5 - 0.25);
+                const distance = 36 + Math.random() * 42;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                const rot = (Math.random() * 200 - 100) + "deg";
+
+                spark.style.setProperty("--tx", tx + "px");
+                spark.style.setProperty("--ty", ty + "px");
+                spark.style.setProperty("--rot", rot);
+
+                container.appendChild(spark);
+                setTimeout(() => spark.remove(), 650);
+            }
+            setTimeout(() => ripple.remove(), 520);
+        }
+
+        /* --- Global Mouse Pointer Event Listener for Audio & VFX (Capture Phase) --- */
+        window.addEventListener('pointerdown', (e) => {
+            // Unlock audio context on gesture
+            if (isSoundEnabled) {
+                const ctx = getAudioContext();
+                if (ctx && ctx.state === 'suspended') ctx.resume();
+                if (bgmAudio && bgmAudio.paused && !isSynthBgmRunning) {
+                    startBgm();
+                }
+            }
+            // Trigger visual sparkle VFX
+            createClickVfx(e);
+            // Trigger tactile click SFX (Always plays on click!)
+            playClickVfxSound();
+        }, true);
+
+        /* --- Global Mouse Hover Event Listener for Audio SFX --- */
+        const HOVER_INTERACTIVE_SELECTOR = 'button, .menu-btn, .pill-btn, .place-card, .career-card, .header-btn, .small-dark-btn, .close-corner-btn, .modal-close-x, .card-item-btn, input, select, .action-btn, .nav-btn, a[href], .track-select, .volume-slider';
+
+        document.addEventListener('mouseover', (e) => {
+            const target = e.target.closest(HOVER_INTERACTIVE_SELECTOR);
+            if (target && target !== lastHoverTarget && !target.disabled) {
+                lastHoverTarget = target;
+                playHoverSound();
+            }
+        }, { passive: true });
+
+        document.addEventListener('mouseout', (e) => {
+            if (lastHoverTarget && !lastHoverTarget.contains(e.relatedTarget)) {
+                lastHoverTarget = null;
+            }
+        }, { passive: true });
+
+        // Try auto-starting BGM as soon as user touches or presses anything
+        ['click', 'touchstart', 'keydown'].forEach(evt => {
+            window.addEventListener(evt, () => {
+                if (isSoundEnabled && bgmAudio && bgmAudio.paused && !isSynthBgmRunning) {
+                    startBgm();
+                }
+            }, { capture: true, once: true });
+        });
+
+        // Initialize BGM on load
+        window.addEventListener('DOMContentLoaded', () => {
+            updateSoundUI();
+            startBgm();
+        });
+
+        /* --- Fullscreen API --- */
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    toast("อุปกรณ์ไม่รองรับโหมดเต็มหน้าจอ");
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+
+        /* --- Game Data & State --- */
+        const CAREERS = {
+            student: { name: "นักศึกษา", emoji: "🎓", money: 350, maxEnergy: 5 },
+            worker: { name: "คนทำงาน", emoji: "💼", money: 700, maxEnergy: 4 },
+            investor: { name: "นักลงทุน", emoji: "📈", money: 1200, maxEnergy: 3 }
+        };
+
+        const TARGETS = [700, 2200, 4500, 7500];
+        const MAX_CARDS = 4;
+
+        const CARD_LIBRARY = [
+            { id: "bonus", name: "โบนัสฉุกเฉิน", icon: "💵", desc: "รับเงิน ฿250 ทันที", use: s => { s.money += 250; return "ได้รับ ฿250"; } },
+            { id: "coupon", name: "คูปองลดพลังงาน", icon: "⏱️", desc: "ลดพลังงานที่ใช้ในกิจกรรมถัดไป 1 หน่วย", use: s => { s.discount += 1; return "กิจกรรมถัดไปใช้พลังงานลดลง 1"; } },
+            { id: "lucky", name: "เครื่องรางโชคดี", icon: "🍀", desc: "เพิ่มโอกาสเกิดเหตุการณ์ดี 3 ครั้งถัดไป", use: s => { s.luck += 3; return "เพิ่มโอกาสโชคดี 3 ครั้ง"; } },
+            { id: "dividend", name: "หุ้นปันผล", icon: "📊", desc: "รับเงินปันผล ฿180", use: s => { s.money += 180; return "รับเงินปันผล ฿180"; } },
+            { id: "coffee", name: "กาแฟเพิ่มพลัง", icon: "☕", desc: "ฟื้นฟูพลังงาน 2 หน่วยในวันนี้", use: s => { s.energy = Math.min(s.maxEnergy, s.energy + 2); return "ฟื้นฟูพลังงาน 2 หน่วย"; } },
+            { id: "insurance", name: "ประกันชีวิต", icon: "🛡️", desc: "รับเงินชดเชย ฿120", use: s => { s.money += 120; return "รับเงินชดเชย ฿120"; } },
+            { id: "network", name: "คอนเนกชันลับ", icon: "🤝", desc: "รับเงิน ฿100 และเพิ่มโชค 1 ครั้ง", use: s => { s.money += 100; s.luck += 1; return "รับ ฿100 และเพิ่มโชค"; } }
+        ];
+
+        let state = null;
+        let toastTimer = null;
+        let pendingModalAction = null;
+
+        /* --- Navigation & Screens --- */
+        function showCareerSelect() {
+            playSound('click');
+            document.getElementById("screen-career").classList.remove("hidden");
+        }
+
+        function closeCareerSelect() {
+            playSound('click');
+            document.getElementById("screen-career").classList.add("hidden");
+        }
+
+        function returnToTitle() {
+            playSound('click');
+            document.getElementById("screen-game").classList.add("hidden");
+            document.getElementById("screen-career").classList.add("hidden");
+            document.getElementById("screen-title").classList.remove("hidden");
+        }
+
+        function confirmExit() {
+            playSound('click');
+            showGeneralModal({
+                icon: "🚪",
+                eyebrow: "EXIT GAME",
+                title: "ออกจากเกม Go To Wealth?",
+                body: "คุณต้องการออกจากรอบการเล่นปัจจุบันหรือไม่?",
+                button: "ยืนยันออก",
+                action: () => {
+                    hideGeneralModal();
+                    returnToTitle();
+                    toast("ออกจากเกมเรียบร้อย");
+                }
+            });
+        }
+
+        function confirmRestart() {
+            playSound('click');
+            showGeneralModal({
+                icon: "↻",
+                eyebrow: "RESTART RUN",
+                title: "เริ่มเกมใหม่?",
+                body: "ความคืบหน้า เงินสะสม และการ์ดในรอบนี้จะถูกรีเซ็ต",
+                button: "ยืนยันเริ่มใหม่",
+                action: () => {
+                    hideGeneralModal();
+                    if (state && state.career) {
+                        startChosenCareer(state.career);
+                    } else {
+                        returnToTitle();
+                    }
+                }
+            });
+        }
+
+        function resetAllGameData() {
+            localStorage.clear();
+            state = null;
+            closeModal('settings');
+            returnToTitle();
+            toast("รีเซ็ตข้อมูลเกมเรียบร้อย");
+        }
+
+        /* --- Start Career --- */
+        function startChosenCareer(careerKey) {
+            playSound('success');
+            const c = CAREERS[careerKey];
+            state = {
+                career: careerKey,
+                money: c.money,
+                maxEnergy: c.maxEnergy,
+                energy: c.maxEnergy,
+                day: 1,
+                week: 1,
+                cards: [],
+                discount: 0,
+                luck: 0,
+                skill: 0,
+                actions: 0,
+                workCount: 0,
+                events: 0,
+                earned: 0,
+                spent: 0,
+                log: [],
+                gameOver: false,
+                ended: false,
+                score: 0,
+                level: 1,
+                exp: 0,
+                totalActions: 0,
+                claimedAchievements: [],
+                dailyCostPenalty: 0,
+                lastDailyEvent: null
+            };
+
+            document.getElementById("screen-title").classList.add("hidden");
+            document.getElementById("screen-career").classList.add("hidden");
+            document.getElementById("screen-game").classList.remove("hidden");
+
+            addLog("🚀", "เริ่มต้นเส้นทางชีวิต", `คุณเริ่มเดินทางในฐานะ ${c.name} ด้วยเงินทุน ฿${fmt(c.money)}`);
+            triggerDailyEvent();
+            render();
+            toast(`ยินดีต้อนรับสู่ Go To Wealth (${c.name})`);
+        }
+
+        /* --- Difficulty Scaling & Daily Events --- */
+        const DAILY_EVENTS = [
+            { id: "storm", name: "พายุเข้า", icon: "🌧️", type: "negative", weight: 1,
+              description: "กิจกรรมกลางแจ้งติดขัด เสียเงินค่าซ่อมแซม",
+              apply: () => { const loss = Math.min(state.money, 35 + state.day * 5); state.money -= loss; state.spent += loss; return `เสียเงิน ฿${fmt(loss)} จากพายุ`; } },
+            { id: "inflation", name: "ค่าครองชีพพุ่ง", icon: "📈", type: "negative", weight: 1,
+              description: "ค่าใช้จ่ายประจำวันเพิ่มขึ้น",
+              apply: () => { const loss = Math.min(state.money, 25 + state.day * 4); state.money -= loss; state.spent += loss; return `ค่าใช้จ่ายเพิ่ม ฿${fmt(loss)}`; } },
+            { id: "fatigue", name: "อ่อนล้าสะสม", icon: "🥱", type: "negative", weight: 1,
+              description: "เริ่มวันด้วยพลังงานน้อยลง",
+              apply: () => { state.energy = Math.max(1, state.energy - 1); return "พลังงานเริ่มต้นลดลง 1 หน่วย"; } },
+            { id: "scarcity", name: "ทรัพยากรขาดแคลน", icon: "📦", type: "negative", weight: 1,
+              description: "การใช้ชีวิตมีต้นทุนสูงขึ้นชั่วคราว",
+              apply: () => { state.dailyCostPenalty = 1; return "กิจกรรมวันนี้ใช้พลังงานเพิ่ม 1 หน่วย"; } },
+            { id: "bonus", name: "โบนัสพิเศษ", icon: "🎁", type: "positive", weight: 1,
+              description: "ได้รับโบนัสจากโอกาสพิเศษ",
+              apply: () => { const gain = 80 + state.day * 8; addMoney(gain); return `ได้รับโบนัส ฿${fmt(gain)}`; } },
+            { id: "harvest", name: "แหล่งทรัพยากรพิเศษ", icon: "💎", type: "positive", weight: 1,
+              description: "พบทรัพยากรที่นำไปขายได้",
+              apply: () => { const gain = 55 + state.day * 6; addMoney(gain); return `ขายทรัพยากรที่พบ ได้ ฿${fmt(gain)}`; } },
+            { id: "recovery", name: "วันพักฟื้น", icon: "🌿", type: "positive", weight: 1,
+              description: "ฟื้นฟูพลังงานเพิ่มเติม",
+              apply: () => { state.energy = Math.min(state.maxEnergy, state.energy + 2); return "ฟื้นฟูพลังงานเพิ่ม 2 หน่วย"; } },
+            { id: "luck", name: "วันแห่งโชค", icon: "🍀", type: "positive", weight: 1,
+              description: "โอกาสได้รับเหตุการณ์ดีเพิ่มขึ้น",
+              apply: () => { state.luck = Math.min(5, (state.luck || 0) + 1); return "เพิ่มแต้มโชค 1 แต้ม"; } }
+        ];
+
+        function getDifficulty() {
+            const day = state ? (state.day || 1) : 1;
+            const stage = Math.floor((day - 1) / 7);
+            return {
+                stage,
+                label: ["เริ่มต้น", "ท้าทาย", "ยาก", "ยากมาก"][Math.min(stage, 3)],
+                actionEnergyPenalty: Math.floor((day - 1) / 7),
+                incomeMultiplier: Math.max(0.72, 1 - stage * 0.07),
+                recoveryMultiplier: Math.max(0.65, 1 - stage * 0.08)
+            };
+        }
+
+        function triggerDailyEvent() {
+            if (!state || state.ended) return;
+            state.dailyCostPenalty = 0;
+            const event = DAILY_EVENTS[Math.floor(Math.random() * DAILY_EVENTS.length)];
+            const result = event.apply();
+            state.lastDailyEvent = { id: event.id, name: event.name, icon: event.icon, type: event.type, result, day: state.day };
+            state.events = (state.events || 0) + 1;
+            addLog(event.icon, `เหตุการณ์วันที่ ${state.day}: ${event.name}`, `${event.description} — ${result}`);
+            toast(`${event.icon} เหตุการณ์วันนี้: ${event.name} — ${result}`);
+        }
+
+        /* --- Helpers --- */
+        function fmt(n) { return Math.floor(n).toLocaleString("th-TH"); }
+        function target() { return TARGETS[Math.floor((state.day - 1) / 7)] || TARGETS[3]; }
+
+        function addLog(icon, title, detail) {
+            state.log.unshift({ icon, title, detail });
+            state.log = state.log.slice(0, 16);
+        }
+
+        function toast(message) {
+            const el = document.getElementById("toast");
+            el.textContent = message;
+            el.classList.remove("hidden");
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => el.classList.add("hidden"), 2300);
+        }
+
+        function rand(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+        function chance(p) { return Math.random() < p; }
+
+        function addMoney(amount) {
+            state.money += amount;
+            if (amount > 0) state.earned += amount;
+            if (amount < 0) state.spent += Math.abs(amount);
+        }
+
+        function requiredExp(level) { return 100 + (Math.max(1, level) - 1) * 50; }
+
+        function awardExp(amount, reason = "") {
+            if (!state || state.ended || !Number.isFinite(amount) || amount <= 0) return;
+            state.exp += Math.floor(amount);
+            let leveledUp = false;
+            while (state.exp >= requiredExp(state.level)) {
+                state.exp -= requiredExp(state.level);
+                state.level++;
+                leveledUp = true;
+                addLog("⭐", "เลื่อนระดับ!", `คุณขึ้นสู่เลเวล ${state.level}`);
+            }
+            if (leveledUp) {
+                playSound('success');
+                toast(`เลเวลอัป! ตอนนี้คุณอยู่เลเวล ${state.level} 🎉`);
+            }
+            if (reason) state.lastExpReason = reason;
+        }
+
+        function getCard() {
+            if (state.cards.length >= MAX_CARDS) {
+                const bonus = 100;
+                addMoney(bonus);
+                addLog("💰", "ช่องการ์ดเต็ม", `เปลี่ยนการ์ดที่หาได้เป็นเงิน ฿${bonus}`);
+                return false;
+            }
+            const owned = state.cards.map(c => c.id);
+            const pool = CARD_LIBRARY.filter(c => !owned.includes(c.id));
+            if (!pool.length) {
+                addMoney(100);
+                addLog("💰", "รับเงินชดเชย", "รับเงินชดเชย ฿100");
+                return false;
+            }
+            const card = pool[rand(0, pool.length - 1)];
+            state.cards.push(card);
+            addLog(card.icon, "ได้รับการ์ดใหม่", card.name);
+            playSound('coin');
+            return true;
+        }
+
+        function goodChance(base) {
+            if (state.luck > 0) { state.luck--; return Math.min(0.95, base + 0.35); }
+            return base;
+        }
+
+        /* --- Random City Events --- */
+        function eventRoll() {
+            state.events++;
+            if (chance(goodChance(0.20))) {
+                const events = [
+                    { icon: "🎁", title: "พบเงินตกอยู่ริมทาง", text: "คุณโชคดีพบเงินระหว่างเดินในเมือง", money: rand(60, 160) },
+                    { icon: "⭐", title: "ผลงานเข้าตากรรมการ", text: "มีคนประทับใจผลงานและมอบรางวัลให้คุณ", money: rand(120, 240) },
+                    { icon: "🃏", title: "พบโอกาสชีวิต", text: "ได้รับคำแนะนำดีๆ ที่กลายเป็นการ์ดช่วยเหลือ", card: true },
+                    { icon: "🤝", title: "พบเพื่อนเก่าในเมือง", text: "ได้รับค่าตอบแทนจากงานที่ช่วยแนะนำ", money: rand(80, 190) }
+                ];
+                const e = events[rand(0, events.length - 1)];
+                if (e.money) { addMoney(e.money); playSound('coin'); }
+                if (e.card) getCard();
+                addLog(e.icon, e.title, e.text + (e.money ? ` +฿${e.money}` : ""));
+            } else if (chance(0.22)) {
+                const loss = Math.min(state.money, rand(80, 180));
+                addMoney(-loss);
+                addLog("⚠️", "ค่าใช้จ่ายไม่คาดคิด", `จ่ายเงินฉุกเฉิน ฿${loss}`);
+            } else {
+                addLog("✨", "หนึ่งวันที่มีความหมาย", "คุณเดินหน้าตามแผนชีวิตอย่างมั่นคง");
+            }
+        }
+
+        /* --- Locations --- */
+        function visit(place) {
+            if (!state || state.ended) return;
+            playSound('click');
+
+            const actions = {
+                work: {
+                    name: "ทำงาน", cost: 2, run: () => {
+                        let income = rand(140, 210) + state.skill * 12;
+                        if (state.career === "worker") income += 50;
+                        if (state.career === "investor") income += 20;
+                        addMoney(income);
+                        state.workCount++;
+                        playSound('coin');
+                        addLog("🏢", "ทำงานสำเร็จ", `ได้รับรายได้ ฿${income}`);
+                    }
+                },
+                learn: {
+                    name: "พัฒนาตัวเอง", cost: 2, run: () => {
+                        state.skill++;
+                        playSound('success');
+                        addLog("📚", "เรียนรู้ทักษะใหม่", `ระดับทักษะชีวิตเพิ่มขึ้นเป็น ${state.skill}`);
+                        if (chance(goodChance(0.48))) getCard();
+                        else if (chance(0.45)) {
+                            const reward = rand(60, 140);
+                            addMoney(reward);
+                            addLog("🏅", "ทุนส่งเสริมการเรียนรู้", `ได้รับเงินรางวัล ฿${reward}`);
+                        }
+                    }
+                },
+                shop: {
+                    name: "ร้านค้า", cost: 1, fee: 100, run: () => {
+                        if (state.money < 100) {
+                            toast("เงินไม่พอสำหรับซื้อการ์ด (ต้องมีอย่างน้อย ฿100)");
+                            return false;
+                        }
+                        addMoney(-100);
+                        getCard();
+                    }
+                },
+                rest: {
+                    name: "พักผ่อน", cost: 1, run: () => {
+                        const before = state.energy;
+                        state.energy = Math.min(state.maxEnergy, state.energy + 1);
+                        addLog("🏖️", "พักผ่อนริมทะเล", "ฟื้นฟูพลังงาน 1 หน่วย");
+                        if (state.energy === before) toast("พลังงานเต็มอยู่แล้ว");
+                        if (chance(goodChance(0.25))) getCard();
+                    }
+                },
+                gig: {
+                    name: "งานเสริมออนไลน์", cost: 1, run: () => {
+                        if (chance(goodChance(0.55))) {
+                            const income = rand(70, 165) + state.skill * 8;
+                            addMoney(income);
+                            playSound('coin');
+                            addLog("🧑‍💻", "งานเสริมสำเร็จ", `ได้รับเงิน ฿${income}`);
+                        } else {
+                            const income = rand(20, 55);
+                            addMoney(income);
+                            addLog("🧑‍💻", "งานเสริมได้เงินน้อย", `ได้รับเงิน ฿${income}`);
+                        }
+                    }
+                },
+                network: {
+                    name: "สร้างเครือข่าย", cost: 1, fee: 50, run: () => {
+                        if (state.money < 50) {
+                            toast("เงินไม่พอสำหรับกิจกรรมนี้ (ต้องมี ฿50)");
+                            return false;
+                        }
+                        addMoney(-50);
+                        state.luck = Math.min(5, state.luck + 2);
+                        playSound('success');
+                        addLog("🤝", "สร้างคอนเนกชัน", "เพิ่มโอกาสพบเหตุการณ์โชคดี 2 ครั้งถัดไป");
+                        if (chance(0.25)) getCard();
+                    }
+                }
+            };
+
+            const a = actions[place];
+            if (!a) return;
+
+            const difficulty = getDifficulty();
+            const scalingPenalty = (a.cost > 0 ? difficulty.actionEnergyPenalty : 0) + (state.dailyCostPenalty || 0);
+            const cost = Math.max(0, a.cost + scalingPenalty - (state.discount > 0 ? 1 : 0));
+            if (state.energy < cost) {
+                toast("พลังงานไม่พอ! เลือกพักผ่อนหรือกดจบวัน");
+                return;
+            }
+            if (a.fee && state.money < a.fee) {
+                toast(`เงินไม่พอ ต้องมีอย่างน้อย ฿${a.fee}`);
+                return;
+            }
+
+            if (state.discount > 0) state.discount--;
+            state.energy -= cost;
+
+            const result = a.run();
+            if (result === false) {
+                state.energy += cost;
+                render();
+                return;
+            }
+
+            state.actions++;
+            state.totalActions = (state.totalActions || 0) + 1;
+            awardExp(place === "learn" ? 30 : place === "work" ? 20 : 15, "ทำกิจกรรม");
+            if (place !== "rest") eventRoll();
+
+            if (state.energy <= 0) {
+                state.energy = 0;
+                render();
+                endDay(false);
+                return;
+            }
+            render();
+        }
+
+        /* --- Card Usage --- */
+        function useCard(index) {
+            if (!state || state.ended) return;
+            playSound('click');
+            const card = state.cards[index];
+            if (!card) return;
+            state.cards.splice(index, 1);
+            const result = card.use(state);
+            addLog(card.icon, "ใช้การ์ด: " + card.name, result);
+            toast(result);
+            render();
+            if (state.energy <= 0) endDay(false);
+        }
+
+        /* --- Day Cycle & Boss Checks --- */
+        function endDay(manual) {
+            if (!state || state.ended) return;
+            playSound('click');
+            const completedDay = state.day;
+            awardExp(10, "จบวัน");
+            addLog("🌙", "สิ้นสุดวันที่ " + completedDay,
+                manual ? "คุณเลือกพักเพื่อเตรียมตัวสำหรับวันถัดไป" : "พลังงานหมดแล้ว วันใหม่กำลังเริ่มต้น");
+
+            if (completedDay % 7 === 0) {
+                checkBoss(completedDay);
+                return;
+            }
+            if (completedDay >= 28) {
+                winGame();
+                return;
+            }
+
+            state.day++;
+            state.week = Math.ceil(state.day / 7);
+            state.energy = state.maxEnergy;
+            render();
+            toast(`เริ่มต้นวันที่ ${state.day} — พลังงานฟื้นฟูเต็มแล้ว ⚡`);
+        }
+
+        function checkBoss(completedDay) {
+            const week = completedDay / 7;
+            const required = TARGETS[week - 1];
+
+            if (state.money < required) {
+                state.ended = true;
+                state.gameOver = true;
+                playSound('gameover');
+                const deficit = required - state.money;
+                showGeneralModal({
+                    icon: "💔",
+                    eyebrow: "WEEKLY BOSS FAILED",
+                    title: "Game Over",
+                    body: `<p>คุณสิ้นสุดสัปดาห์ที่ ${week} ด้วยเงินไม่ถึงเป้าหมาย</p>
+                           <p style="margin:12px 0">เงินที่มี: <b>฿${fmt(state.money)}</b> | เป้าหมาย: <b>฿${fmt(required)}</b><br>
+                           ยังขาดอีก <b>฿${fmt(deficit)}</b></p>
+                           <p>อย่ายอมแพ้! ลองวางแผนการใช้พลังงานและการเลือกอาชีพใหม่</p>`,
+                    button: "เล่นอีกครั้ง",
+                    action: () => {
+                        hideGeneralModal();
+                        showCareerSelect();
+                    }
+                });
+                render();
+                return;
+            }
+
+            if (completedDay === 28) {
+                winGame();
+                return;
+            }
+
+            state.week = week + 1;
+            playSound('success');
+            showGeneralModal({
+                icon: "👑",
+                eyebrow: `WEEK ${week} COMPLETED`,
+                title: "ผ่านบอสประจำสัปดาห์!",
+                body: `<p>ยอดเยี่ยมมาก! คุณมีเงิน <b>฿${fmt(state.money)}</b> (เป้าหมาย ฿${fmt(required)})</p>
+                       <p style="margin:10px 0">เตรียมตัวเข้าสู่ <b>สัปดาห์ที่ ${week + 1}</b> พร้อมเป้าหมายที่ท้าทายยิ่งขึ้น!</p>`,
+                button: "เริ่มสัปดาห์ถัดไป →",
+                action: () => {
+                    hideGeneralModal();
+                    state.day = completedDay + 1;
+                    state.week = week + 1;
+                    state.energy = state.maxEnergy;
+                    render();
+                }
+            });
+            render();
+        }
+
+        function calcScore() {
+            return Math.max(0, Math.floor(state.money + state.skill * 100 + state.workCount * 50 +
+                state.actions * 10 + state.events * 5 + state.cards.length * 25));
+        }
+
+        function winGame() {
+            state.ended = true;
+            state.score = calcScore();
+            playSound('success');
+            showGeneralModal({
+                icon: "🏆",
+                eyebrow: "28 DAYS COMPLETE",
+                title: "VICTORY! ชนะเกมแล้ว",
+                body: `<p>ยินดีด้วย! คุณบริหารชีวิตจนผ่านครบทั้ง 4 สัปดาห์</p>
+                       <h2 style="font-size:36px;color:var(--primary);margin:12px 0">${fmt(state.score)} คะแนน</h2>
+                       <p>เงินสะสมสุทธิ: <b>฿${fmt(state.money)}</b> | ทักษะชีวิต: <b>${state.skill}</b></p>`,
+                button: "เล่นใหม่อีกรอบ",
+                action: () => {
+                    hideGeneralModal();
+                    showCareerSelect();
+                }
+            });
+            render();
+        }
+
+        /* --- Modals Helper --- */
+        function openModal(id) {
+            playSound('click');
+            const el = document.getElementById("modal-" + id);
+            if (el) el.classList.remove("hidden");
+        }
+
+        function closeModal(id) {
+            playSound('click');
+            const el = document.getElementById("modal-" + id);
+            if (el) el.classList.add("hidden");
+        }
+
+        function showGeneralModal(data) {
+            pendingModalAction = data.action;
+            const iconEl = document.getElementById("genModalIcon");
+            if (data.icon === "👑" || !data.icon) {
+                iconEl.innerHTML = '<div class="crown-emblem" style="margin:0 auto 14px;width:64px;height:64px;transform:scale(1.1)"><svg viewBox="0 0 48 48" class="crown-logo-svg" style="width:38px;height:38px"><use href="#logo-crown"/></svg></div>';
+            } else {
+                iconEl.textContent = data.icon;
+            }
+            document.getElementById("genModalEyebrow").textContent = data.eyebrow || "NOTICE";
+            document.getElementById("genModalTitle").textContent = data.title;
+            document.getElementById("genModalBody").innerHTML = data.body;
+            document.getElementById("genModalBtn").textContent = data.button || "ตกลง";
+            document.getElementById("modal-general").classList.remove("hidden");
+        }
+
+        function generalModalAction() {
+            playSound('click');
+            if (pendingModalAction) {
+                pendingModalAction();
+            } else {
+                hideGeneralModal();
+            }
+        }
+
+        function hideGeneralModal() {
+            document.getElementById("modal-general").classList.add("hidden");
+            pendingModalAction = null;
+        }
+
+        /* --- Render UI --- */
+        function render() {
+            if (!state) return;
+            const c = CAREERS[state.career];
+
+            document.getElementById("playerCareerBadge").textContent = `${c.emoji} ${c.name}`;
+            document.getElementById("money").textContent = "฿" + fmt(state.money);
+            document.getElementById("energy").textContent = `${state.energy} / ${state.maxEnergy}`;
+            document.getElementById("energyText").textContent = `${state.energy} / ${state.maxEnergy} หน่วย`;
+            document.getElementById("energyBar").style.width = (state.energy / state.maxEnergy * 100) + "%";
+            document.getElementById("day").textContent = `${state.day} / 28`;
+            document.getElementById("week").textContent = `สัปดาห์ที่ ${Math.ceil(state.day / 7)}`;
+            document.getElementById("target").textContent = "฿" + fmt(target());
+
+            const remaining = Math.max(0, target() - state.money);
+            document.getElementById("targetSub").textContent = remaining === 0 ? "ผ่านเกณฑ์บอสแล้ว! 🎉" : `ยังขาดอีก ฿${fmt(remaining)}`;
+
+            // Render progression and a simple in-run challenge
+            const levelEl = document.getElementById("playerLevel");
+            const xpLabel = document.getElementById("xpLabel");
+            const xpBar = document.getElementById("xpBar");
+            if (levelEl && xpLabel && xpBar) {
+                const required = requiredExp(state.level || 1);
+                levelEl.textContent = state.level || 1;
+                xpLabel.textContent = `${state.exp || 0} / ${required} EXP ถึงเลเวลถัดไป`;
+                xpBar.style.width = `${Math.min(100, ((state.exp || 0) / required) * 100)}%`;
+                const actionCount = state.totalActions || 0;
+                document.getElementById("challengeProgress").textContent = `ทำกิจกรรมให้ครบ 5 ครั้ง · ${Math.min(5, actionCount)} / 5`;
+                document.getElementById("challengeTitle").textContent = actionCount >= 5 ? "นักวางแผนมือใหม่ — สำเร็จแล้ว!" : "นักวางแผนมือใหม่";
+            }
+
+            // Render energy dots
+            const dotsWrap = document.getElementById("energyDots");
+            dotsWrap.innerHTML = Array.from({ length: state.maxEnergy }, (_, i) =>
+                `<div class="energy-dot ${i < state.energy ? "active" : ""}"></div>`
+            ).join("");
+
+            // Render cards
+            document.getElementById("cardCount").textContent = `${state.cards.length} / ${MAX_CARDS}`;
+            const cardsList = document.getElementById("cardsList");
+            cardsList.innerHTML = "";
+            if (!state.cards.length) {
+                cardsList.innerHTML = '<div class="empty-cards-state">ยังไม่มีการ์ดสะสม<br>แวะร้านค้าหรือพัฒนาตัวเองเพื่อรับการ์ด</div>';
+            } else {
+                state.cards.forEach((card, i) => {
+                    const item = document.createElement("div");
+                    item.className = "card-item";
+                    item.innerHTML = `
+                        <div class="card-item-top">
+                            <span class="card-item-icon">${card.icon}</span>
+                            <span class="card-item-title">${card.name}</span>
+                        </div>
+                        <div class="card-item-desc">${card.desc}</div>
+                        <button class="card-item-btn" onclick="useCard(${i})">ใช้การ์ด</button>
+                    `;
+                    cardsList.appendChild(item);
+                });
+            }
+
+            // Render logs
+            const logList = document.getElementById("logList");
+            logList.innerHTML = "";
+            state.log.slice(0, 10).forEach(item => {
+                const row = document.createElement("div");
+                row.className = "log-item";
+                row.innerHTML = `
+                    <div class="log-badge">${item.icon}</div>
+                    <div class="log-body">
+                        <b>${item.title}</b>
+                        <span>${item.detail}</span>
+                    </div>
+                `;
+                logList.appendChild(row);
+            });
+
+            // Update buttons
+            document.querySelectorAll(".place-card").forEach(btn => btn.disabled = state.ended);
+            const endBtn = document.getElementById("endDayBtn");
+            endBtn.disabled = state.ended;
+            endBtn.innerHTML = state.energy === 0 ? "<span>🌙</span> <span>เปลี่ยนสู่วันถัดไป</span>" : "<span>🌙</span> <span>จบวันและพักผ่อน</span>";
+        }
+    </script>
+
+<script>
+(() => {
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+    const layer = document.createElement('div');
+    layer.className = 'roro-particle-layer';
+    layer.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(layer);
+    ['one','two'].forEach(name => {
+        const orb = document.createElement('div');
+        orb.className = 'roro-ambient ' + name;
+        document.body.appendChild(orb);
+    });
+    const icons = ['✦','✧','✨','•','＋'];
+    function burst(x, y, count = 7) {
+        for (let i = 0; i < count; i++) {
+            const p = document.createElement('span');
+            p.className = 'roro-particle';
+            p.textContent = icons[Math.floor(Math.random() * icons.length)];
+            p.style.left = x + 'px';
+            p.style.top = y + 'px';
+            p.style.setProperty('--dx', (Math.random() * 100 - 50) + 'px');
+            p.style.setProperty('--dy', (-20 - Math.random() * 65) + 'px');
+            p.style.animationDelay = (Math.random() * 90) + 'ms';
+            layer.appendChild(p);
+            p.addEventListener('animationend', () => p.remove(), { once: true });
+        }
+    }
+    document.addEventListener('click', event => {
+        const target = event.target.closest('button, .place-card, [role="button"]');
+        if (!target || target.disabled) return;
+        burst(event.clientX, event.clientY, target.classList.contains('place-card') ? 10 : 5);
+    });
+    // Light entrance animation for the main game screen without changing game logic.
+    document.querySelectorAll('main, .game-container, .game-screen').forEach(el => {
+        el.style.animation = 'roroSlideIn .55s ease both';
+    });
+})();
+</script>
+
+</body>
+
+</html>
